@@ -14,8 +14,11 @@ public enum SourceStatus
     /// <summary>No candidate commit in the linked repository contains all of the DLL's code.</summary>
     Differences,
 
-    /// <summary>The comparison could not be completed (network, rate limit, unreadable DLL).</summary>
+    /// <summary>The comparison could not be completed (network, unreadable DLL).</summary>
     Error,
+
+    /// <summary>GitHub's hourly limit is used up; the comparison continues after <see cref="SourceVerification.RetryAfter"/>.</summary>
+    RateLimited,
 }
 
 public sealed record SourceVerification(
@@ -28,7 +31,11 @@ public sealed record SourceVerification(
     string? ComparedCommit,
     string? HowFound,
     IReadOnlyList<string> Notes,
-    ComparisonResult? Comparison);
+    ComparisonResult? Comparison)
+{
+    /// <summary>For <see cref="SourceStatus.RateLimited"/>: when GitHub's limit resets.</summary>
+    public DateTimeOffset? RetryAfter { get; init; }
+}
 
 /// <summary>
 /// Compares a mod's own DLL with the repository linked on its Paradox Mods page. Candidate commits,
@@ -78,7 +85,24 @@ public static partial class SourceVerifier
         try
         {
             // 1. The commit the DLL names. A hint only: the builder controls this text.
-            if (claimed is not null)
+            // A full SHA is downloaded directly (one request); "not found" means the repository does not have it.
+            if (claimed is { Length: 40 })
+            {
+                try
+                {
+                    claimedInRepo = true;
+                    if (await TryAsync(claimed, "the commit named in the DLL") is { } done)
+                    {
+                        return done;
+                    }
+                }
+                catch (GitHubNotFoundException)
+                {
+                    claimedInRepo = false;
+                    notes.Add($"The DLL names commit {Short(claimed)}, which is not in {repoName}.");
+                }
+            }
+            else if (claimed is not null)
             {
                 var full = await GitHubSource.FindCommitAsync(repo.Owner, repo.Repo, claimed, cancellationToken);
                 claimedInRepo = full is not null;
@@ -121,6 +145,13 @@ public static partial class SourceVerifier
                     }
                 }
             }
+        }
+        catch (GitHubRateLimitException e)
+        {
+            // Not an error: the comparison simply continues once GitHub's hourly limit resets.
+            return new SourceVerification(dllFile, SourceStatus.RateLimited,
+                $"Waiting for GitHub: its hourly limit for requests without an account is used up. The comparison continues after {e.ResetAt.ToLocalTime():HH:mm}.",
+                repoName, claimed, claimedInRepo, null, null, notes, null) { RetryAfter = e.ResetAt };
         }
         catch (Exception e) when (e is HttpRequestException or InvalidDataException or InvalidOperationException or TaskCanceledException or ArgumentException or System.Text.Json.JsonException)
         {

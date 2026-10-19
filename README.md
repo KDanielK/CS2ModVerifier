@@ -35,12 +35,15 @@ Requires Windows 10 or 11 (64-bit). Nothing else needs to be installed.
 1. Download `CS2ModVerifier-vX.Y.Z-win-x64.zip` from [Releases](https://github.com/KDanielK/CS2ModVerifier/releases).
 2. Check the download (see below), extract it, and run `CS2ModVerifier.exe`.
 3. Read and accept the explanation on first start. The app opens its window and checks your mods; afterwards it runs in the tray (the shield icon).
+4. Optional: right-click the tray icon and turn on **Start with Windows**. It is off by default. It adds an entry for your Windows user only (no admin rights needed).
 
 The exe is not code-signed, so Windows SmartScreen may warn that it is from an unknown publisher. Check the download first, then choose "More info" and "Run anyway".
 
-**What it stores:** settings, ignored findings, cached results and a log in `%LOCALAPPDATA%\CS2ModVerifier`. To remove the app, exit it from the tray menu and delete the exe and that folder.
+**What it stores:** settings, ignored findings, cached results and a log in `%LOCALAPPDATA%\CS2ModVerifier`. To remove the app, turn off "Start with Windows" if you turned it on, exit the app from the tray menu, and delete the exe and that folder.
 
-**Network use:** it only contacts GitHub: `api.github.com` to read the public repositories linked from mod pages and the official Harmony releases, and GitHub's own download hosts that the API redirects to. It sends no information about you, your PC or your mods; GitHub sees an ordinary web request (including your IP address), as with any website. Repositories are never searched for: only the link on a mod's Paradox Mods page is used.
+**Network use:** it only contacts GitHub: `api.github.com` to read the public repositories linked from mod pages and the official Harmony releases, and GitHub's own download hosts that the API redirects to. It sends no information about you, your PC or your mods; GitHub sees an ordinary web request (including your IP address), as with any website. Repositories are never searched for: only the link on a mod's Paradox Mods page is used. GitHub allows 60 requests per hour without an account; a mod usually needs one or none, and results are remembered. If the limit is reached, the remaining mods show "Waiting for GitHub" and are compared automatically once it resets.
+
+Want to help test? See [TESTING.md](TESTING.md).
 
 ## Check that a download is genuine
 
@@ -84,7 +87,7 @@ To refresh the built-in list of official Harmony builds, run `tools/Update-Known
 
 ## Report a problem
 
-- **Bugs, wrong or unclear findings, ideas:** open an [issue](https://github.com/KDanielK/CS2ModVerifier/issues).
+- **Bugs, wrong or unclear findings, ideas:** open an [issue](https://github.com/KDanielK/CS2ModVerifier/issues/new/choose).
 - **A security problem in this tool:** please report it privately, see [SECURITY.md](SECURITY.md).
 - **A harmful mod:** report it to Paradox through the mod's page on Paradox Mods.
 

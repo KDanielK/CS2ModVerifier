@@ -72,6 +72,49 @@ public class SourceDiscoveryTests
     }
 
     [Fact]
+    public void RateLimit_StopsAtTheReserve_UntilTheReset()
+    {
+        try
+        {
+            var now = DateTimeOffset.UtcNow;
+            var reset = now.AddMinutes(20);
+            RateLimit.Reset();
+
+            RateLimit.Update("10", reset.ToUnixTimeSeconds().ToString());
+            Assert.False(RateLimit.IsExhausted(now));
+
+            RateLimit.Update(RateLimit.Reserve.ToString(), reset.ToUnixTimeSeconds().ToString());
+            var exception = Assert.Throws<GitHubRateLimitException>(() => RateLimit.ThrowIfExhausted(now));
+            Assert.Equal(reset.ToUnixTimeSeconds(), exception.ResetAt.ToUnixTimeSeconds());
+
+            // After the reset time, requests are allowed again until a new response says otherwise.
+            Assert.False(RateLimit.IsExhausted(reset.AddSeconds(1)));
+        }
+        finally
+        {
+            RateLimit.Reset();
+        }
+    }
+
+    [Theory]
+    [InlineData(null, "1700000000")]
+    [InlineData("0", null)]
+    [InlineData("many", "1700000000")]
+    public void RateLimit_IgnoresMissingOrInvalidHeaders(string? remaining, string? reset)
+    {
+        try
+        {
+            RateLimit.Reset();
+            RateLimit.Update(remaining, reset);
+            Assert.False(RateLimit.IsExhausted(DateTimeOffset.FromUnixTimeSeconds(1_600_000_000)));
+        }
+        finally
+        {
+            RateLimit.Reset();
+        }
+    }
+
+    [Fact]
     public void ProjectFile_SymbolsAreUsedForIfBranches()
     {
         var model = SourceModel.FromZip(Zip(
