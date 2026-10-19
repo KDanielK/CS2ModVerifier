@@ -88,6 +88,14 @@ To refresh the built-in list of official Harmony builds, run `tools/Update-Known
 - **A security problem in this tool:** please report it privately, see [SECURITY.md](SECURITY.md).
 - **A harmful mod:** report it to Paradox through the mod's page on Paradox Mods.
 
+## Built with
+
+- [.NET 10](https://github.com/dotnet/runtime) and Windows Forms; DLLs are read with `System.Reflection.Metadata`, part of .NET.
+- [Roslyn](https://github.com/dotnet/roslyn) (`Microsoft.CodeAnalysis.CSharp`) to parse C# source for the source comparison. This is the only third-party package in the app.
+- Harmony's official release hashes, from [pardeike/Harmony](https://github.com/pardeike/Harmony), to recognise official builds. No Harmony code is included.
+
+Licenses and notices: [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+
 ## License
 
 [MIT](LICENSE), Copyright (c) 2026 Daniel Karlsson.
