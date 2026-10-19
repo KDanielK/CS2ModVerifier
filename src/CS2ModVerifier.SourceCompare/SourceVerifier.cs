@@ -48,9 +48,11 @@ public static partial class SourceVerifier
         var repository = PdxModsCache.ParseGitHubRepository(page?.GitHubUrl);
         if (repository is not { } repo)
         {
-            var message = page?.GitHubUrl is null
-                ? "The mod's Paradox Mods page has no GitHub link, so there is no published source to compare."
-                : $"The GitHub link on the mod's page is not a repository address: {page.GitHubUrl}";
+            var message = page is null
+                ? "This mod was not installed from Paradox Mods, so there is no mod page with a source link to compare with."
+                : page.GitHubUrl is null
+                    ? "The mod's Paradox Mods page has no GitHub link, so there is no published source to compare."
+                    : $"The GitHub link on the mod's page is not a repository address: {page.GitHubUrl}";
             return new SourceVerification(dllFile, SourceStatus.NoSourceLinked, message, null, null, null, null, null, [], null);
         }
 

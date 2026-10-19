@@ -63,7 +63,9 @@ internal sealed class IgnoreStore
             // No published source means the code cannot be checked against anything: High (decided 2026-10-19).
             .Concat(result.Sources
                 .Where(s => s.Status == SourceStatus.NoSourceLinked)
-                .Select(s => new Finding(Severity.High, "NoSourceLinked", "The mod's Paradox Mods page has no GitHub link, so its code cannot be compared with any published source", s.DllFile)))
+                .Select(s => new Finding(Severity.High, "NoSourceLinked", result.Page is null
+                    ? "Not installed from Paradox Mods, so there is no mod page with a source link: its code cannot be compared with any published source"
+                    : "The mod's Paradox Mods page has no GitHub link, so its code cannot be compared with any published source", s.DllFile)))
             .Concat(result.Scan.Findings)
             .Where(f => f.Severity >= Severity.Medium)
             .OrderByDescending(f => f.Severity)

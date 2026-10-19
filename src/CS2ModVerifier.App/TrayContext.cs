@@ -44,7 +44,11 @@ internal sealed class TrayContext : ApplicationContext
         tray.BalloonTipClicked += (_, _) => ShowWindow();
 
         checks.Checked += (previous, result) => Post(() => OnChecked(previous, result));
-        checks.Removed += path => Post(() => window?.RemoveRow(path));
+        checks.Removed += path =>
+        {
+            Log.Write($"Removed (folder gone): {path}");
+            Post(() => window?.RemoveRow(path));
+        };
         checks.PendingChanged += () => Post(() => window?.RefreshPending());
         checks.BusyChanged += busy => Post(() =>
         {
