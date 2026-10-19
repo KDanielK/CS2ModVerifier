@@ -643,7 +643,10 @@ internal sealed class MainForm : Form
         progress.Visible = busy || waiting > 0;
         status.Text = waiting > 0
             ? $"Checking mods: {waiting} to go. {mods.Count} checked so far, {open} with open findings."
-            : $"{mods.Count} code mods, {open} with open findings. Watching the mod folders for new downloads and updates.";
+            : $"{mods.Count} code mods, {open} with open findings.{LastCheck()} Watching the mod folders for new downloads and updates.";
+
+        // A check of only code mods with cached source comparisons takes well under a second; show that it ran.
+        string LastCheck() => checks.LastCheckFinished is { } at ? $" Last check: {at:HH:mm:ss}." : string.Empty;
     }
 
     /// <summary>Mods that need attention first: changed files, code not in source, then by open severity.</summary>

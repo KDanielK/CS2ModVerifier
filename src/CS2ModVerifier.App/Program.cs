@@ -13,6 +13,10 @@ internal static class Program
         }
 
         ApplicationConfiguration.Initialize();
+
+        // Code after "await" must continue on the UI thread. Windows Forms only installs this context once a
+        // window exists, which is not the case when the app starts without the disclaimer (e.g. autostart).
+        SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());
         Application.ThreadException += (_, e) => Log.Write($"Error: {e.Exception}");
         AppDomain.CurrentDomain.UnhandledException += (_, e) => Log.Write($"Fatal: {e.ExceptionObject}");
         TaskScheduler.UnobservedTaskException += (_, e) => Log.Write($"Background error: {e.Exception}");
