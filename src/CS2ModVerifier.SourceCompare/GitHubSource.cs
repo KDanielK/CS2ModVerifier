@@ -115,6 +115,12 @@ public static partial class GitHubSource
                 throw new InvalidOperationException($"Refusing to download from {uri.Host}: only GitHub hosts are allowed.");
             }
 
+            var isApi = uri.Host.Equals("api.github.com", StringComparison.OrdinalIgnoreCase);
+            if (isApi)
+            {
+                RateLimit.ThrowIfExhausted(DateTimeOffset.UtcNow);
+            }
+
             using var request = new HttpRequestMessage(HttpMethod.Get, uri);
             request.Headers.UserAgent.Add(new ProductInfoHeaderValue("CS2ModVerifier", "0.1"));
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(accept));
@@ -128,6 +134,15 @@ public static partial class GitHubSource
             }
 
             using var response = await Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+            if (isApi)
+            {
+                RateLimit.Update(Header(response, "X-RateLimit-Remaining"), Header(response, "X-RateLimit-Reset"));
+                if (response.StatusCode is HttpStatusCode.Forbidden or HttpStatusCode.TooManyRequests && RateLimit.IsExhausted(DateTimeOffset.UtcNow))
+                {
+                    RateLimit.ThrowIfExhausted(DateTimeOffset.UtcNow);
+                }
+            }
+
             if (response.StatusCode is HttpStatusCode.Redirect or HttpStatusCode.Found or HttpStatusCode.TemporaryRedirect
                 or HttpStatusCode.MovedPermanently or HttpStatusCode.PermanentRedirect or HttpStatusCode.SeeOther)
             {
@@ -174,6 +189,74 @@ public static partial class GitHubSource
 
         throw new InvalidOperationException("Too many redirects from GitHub.");
     }
+
+    private static string? Header(HttpResponseMessage response, string name) =>
+        response.Headers.TryGetValues(name, out var values) ? values.FirstOrDefault() : null;
 }
 
 public sealed class GitHubNotFoundException(string message) : HttpRequestException(message);
+
+/// <summary>GitHub's hourly limit is used up; comparisons can continue at <see cref="ResetAt"/>.</summary>
+public sealed class GitHubRateLimitException(DateTimeOffset resetAt)
+    : HttpRequestException($"GitHub's limit for requests without an account is used up until {resetAt.ToLocalTime():HH:mm}.")
+{
+    public DateTimeOffset ResetAt { get; } = resetAt;
+}
+
+/// <summary>
+/// Tracks GitHub's hourly request limit from the headers of every API response (60 per hour without an account).
+/// Requests stop a little before the limit, so the tool never runs into GitHub's error responses.
+/// </summary>
+public static class RateLimit
+{
+    /// <summary>Requests kept in reserve, so a started comparison can finish.</summary>
+    public const int Reserve = 3;
+
+    private static readonly Lock Gate = new();
+    private static int? remaining;
+    private static DateTimeOffset? resetAt;
+
+    /// <summary>When the limit resets, if it is used up now; otherwise null.</summary>
+    public static DateTimeOffset? ExhaustedUntil(DateTimeOffset now)
+    {
+        lock (Gate)
+        {
+            return remaining is { } left && left <= Reserve && resetAt is { } reset && reset > now ? reset : null;
+        }
+    }
+
+    public static bool IsExhausted(DateTimeOffset now) => ExhaustedUntil(now) is not null;
+
+    public static void ThrowIfExhausted(DateTimeOffset now)
+    {
+        if (ExhaustedUntil(now) is { } reset)
+        {
+            throw new GitHubRateLimitException(reset);
+        }
+    }
+
+    /// <summary>Records the "X-RateLimit-Remaining" and "X-RateLimit-Reset" (Unix seconds) headers of a response.</summary>
+    public static void Update(string? remainingHeader, string? resetHeader)
+    {
+        if (!int.TryParse(remainingHeader, out var left) || !long.TryParse(resetHeader, out var unixSeconds))
+        {
+            return;
+        }
+
+        lock (Gate)
+        {
+            remaining = left;
+            resetAt = DateTimeOffset.FromUnixTimeSeconds(unixSeconds);
+        }
+    }
+
+    /// <summary>Forgets the tracked state (for tests).</summary>
+    public static void Reset()
+    {
+        lock (Gate)
+        {
+            remaining = null;
+            resetAt = null;
+        }
+    }
+}

@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security problem in this tool
+    url: https://github.com/KDanielK/CS2ModVerifier/security/advisories/new
+    about: Please report security problems privately.
+  - name: Harmful mod
+    url: https://mods.paradoxplaza.com/games/cities_skylines_2
+    about: Report harmful mods to Paradox on the mod's page.

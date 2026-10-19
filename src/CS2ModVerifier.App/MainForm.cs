@@ -511,6 +511,7 @@ internal sealed class MainForm : Form
             // Open differences and missing source are drawn as a red cell; here they are already ignored.
             SourceStatus.Differences or SourceStatus.NoSourceLinked => SystemColors.GrayText,
             SourceStatus.Error => Badges.Medium,
+            SourceStatus.RateLimited => Badges.Info,
             _ => SystemColors.GrayText,
         },
         3 => result.Scan.Manifest.Status switch

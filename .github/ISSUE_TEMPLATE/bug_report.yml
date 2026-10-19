@@ -1,0 +1,43 @@
+name: Bug report or wrong finding
+description: Something does not work, or a finding is wrong or unclear.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for testing CS2 Mod Verifier!
+        **Security problems in this tool** go through private reporting instead, see SECURITY.md.
+        **A harmful mod** should be reported to Paradox on the mod's Paradox Mods page.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Right-click CS2ModVerifier.exe, Properties, Details, "Product version".
+      placeholder: 0.1.2+abc1234
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+      description: For a wrong or unclear finding, copy the finding's text.
+    validations:
+      required: true
+  - type: input
+    id: mods
+    attributes:
+      label: Mods involved
+      description: Name and version as shown in the app, or the Paradox Mods link.
+  - type: textarea
+    id: log
+    attributes:
+      label: Log (optional)
+      description: |
+        From %LOCALAPPDATA%\CS2ModVerifier\app.log. The log contains folder paths that include your Windows user name;
+        replace it before pasting if you prefer.
+      render: text
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      placeholder: Windows 11 24H2

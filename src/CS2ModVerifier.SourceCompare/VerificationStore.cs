@@ -48,10 +48,10 @@ public sealed class VerificationStore
         }
     }
 
-    /// <summary>Stores final results only. Errors (network, rate limit) are retried next time.</summary>
+    /// <summary>Stores final results only. Errors and "waiting for GitHub" are retried next time.</summary>
     public void Save(string key, SourceVerification verification)
     {
-        if (verification.Status is SourceStatus.Error or SourceStatus.NoSourceLinked)
+        if (verification.Status is SourceStatus.Error or SourceStatus.NoSourceLinked or SourceStatus.RateLimited)
         {
             return;
         }

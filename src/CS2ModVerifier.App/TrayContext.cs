@@ -17,8 +17,10 @@ internal sealed class TrayContext : ApplicationContext
     private readonly System.Windows.Forms.Timer rescanTimer;
     private readonly SynchronizationContext ui;
     private readonly IgnoreStore ignores = IgnoreStore.Load();
+    private readonly System.Windows.Forms.Timer retryTimer = new();
     private MainForm? window;
     private bool initialCheckDone;
+    private DateTimeOffset? retryAt;
 
     public TrayContext(bool openWindow)
     {
@@ -30,6 +32,14 @@ internal sealed class TrayContext : ApplicationContext
         menu.Items.Add("Open", null, (_, _) => ShowWindow());
         menu.Items.Add("Check all mods now", null, (_, _) => _ = checks.CheckAllAsync());
         menu.Items.Add("About and disclaimer", null, (_, _) => ShowAbout());
+        menu.Items.Add(new ToolStripSeparator());
+        var startWithWindows = new ToolStripMenuItem("Start with Windows") { CheckOnClick = true, Checked = Autostart.IsEnabled() };
+        startWithWindows.CheckedChanged += (_, _) =>
+        {
+            Autostart.Set(startWithWindows.Checked);
+            Log.Write($"Start with Windows: {(startWithWindows.Checked ? "on" : "off")}");
+        };
+        menu.Items.Add(startWithWindows);
         menu.Items.Add(new ToolStripSeparator());
         menu.Items.Add("Exit", null, (_, _) => ExitThread());
 
@@ -72,6 +82,16 @@ internal sealed class TrayContext : ApplicationContext
         rescanTimer.Tick += (_, _) => _ = checks.CheckAllAsync();
         rescanTimer.Start();
 
+        // Comparisons that waited for GitHub's hourly limit continue on their own once it resets.
+        retryTimer.Tick += (_, _) =>
+        {
+            retryTimer.Stop();
+            retryAt = null;
+            Log.Write("GitHub's limit has reset; continuing the comparisons.");
+            _ = checks.CheckAllAsync();
+        };
+
+        Autostart.KeepPathCurrent();
         _ = InitialCheckAsync();
         if (openWindow)
         {
@@ -82,6 +102,7 @@ internal sealed class TrayContext : ApplicationContext
     protected override void ExitThreadCore()
     {
         rescanTimer.Dispose();
+        retryTimer.Dispose();
         watcher.Dispose();
         tray.Visible = false;
         tray.Dispose();
@@ -98,7 +119,12 @@ internal sealed class TrayContext : ApplicationContext
         var matches = code.Count(r => r.SourceStatus == SourceStatus.Matches);
         var differs = code.Count(r => r.SourceStatus == SourceStatus.Differences);
         var openHigh = code.Count(r => ignores.Summarize(r).Highest == Core.Severity.High);
+        var waiting = code.Count(r => r.SourceStatus == SourceStatus.RateLimited);
         var summary = $"Checked {code.Count} code mods: {matches} match their GitHub source, {differs} differ from it. {openHigh} have open high findings.";
+        if (waiting > 0 && retryAt is { } at)
+        {
+            summary += $" {waiting} wait for GitHub's hourly limit and are compared after {at.ToLocalTime():HH:mm}.";
+        }
 
         Log.Write("Initial check done. " + summary);
         Notify(openHigh > 0 ? ToolTipIcon.Warning : ToolTipIcon.Info, summary + " " + Disclaimer.Short);
@@ -110,6 +136,11 @@ internal sealed class TrayContext : ApplicationContext
             + string.Concat(result.Sources.Where(s => s.Status == SourceStatus.Error).Select(s => $" | {s.Message}")));
         window?.Upsert(result);
 
+        if (result.Sources.Select(s => s.RetryAfter).Where(r => r is not null).Min() is { } reset)
+        {
+            ScheduleRetry(reset);
+        }
+
         // The first full check ends with one summary instead of a notification per mod.
         if (!initialCheckDone || Texts.Change(previous, result, ignores) is not { } message)
         {
@@ -117,6 +148,23 @@ internal sealed class TrayContext : ApplicationContext
         }
 
         Notify(ignores.Summarize(result).Highest == Core.Severity.High ? ToolTipIcon.Warning : ToolTipIcon.Info, message);
+    }
+
+    /// <summary>Checks everything again 30 seconds after GitHub's limit resets (cached results make that cheap).</summary>
+    private void ScheduleRetry(DateTimeOffset reset)
+    {
+        var at = reset.AddSeconds(30);
+        if (retryAt is { } planned && planned <= at)
+        {
+            return;
+        }
+
+        retryAt = at;
+        var wait = at - DateTimeOffset.UtcNow;
+        retryTimer.Stop();
+        retryTimer.Interval = (int)Math.Clamp(wait.TotalMilliseconds, 1_000, int.MaxValue);
+        retryTimer.Start();
+        Log.Write($"Waiting for GitHub's hourly limit; continuing at {at.ToLocalTime():HH:mm:ss}.");
     }
 
     private void Notify(ToolTipIcon icon, string text) =>

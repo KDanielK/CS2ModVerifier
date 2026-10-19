@@ -13,6 +13,7 @@ internal static class Texts
         SourceStatus.Matches => "Matches source",
         SourceStatus.Differences => "Differs from source",
         SourceStatus.NoSourceLinked => "No source linked",
+        SourceStatus.RateLimited => "Waiting for GitHub",
         _ => "Could not compare",
     };
 

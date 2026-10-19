@@ -16,7 +16,7 @@ public sealed record ModCheckResult(
     private static int Rank(SourceStatus status) => status switch
     {
         SourceCompare.SourceStatus.Differences => 0,
-        SourceCompare.SourceStatus.Error => 1,
+        SourceCompare.SourceStatus.Error or SourceCompare.SourceStatus.RateLimited => 1,
         SourceCompare.SourceStatus.NoSourceLinked => 2,
         _ => 3,
     };

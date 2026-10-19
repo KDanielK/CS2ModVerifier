@@ -81,6 +81,7 @@ internal static class Explain
             SourceStatus.Differences => "Some of its code is not in its published source on GitHub.",
             SourceStatus.NoSourceLinked => "It has no published source to compare with.",
             SourceStatus.Error => "Its source comparison could not be finished yet.",
+            SourceStatus.RateLimited => "Its source comparison is waiting for GitHub's hourly limit to reset.",
             _ => "Its source was not compared.",
         });
         parts.Add(rollup.Highest is null ? "No open findings." : $"Most serious open finding: {rollup.Highest.Value.ToString().ToLowerInvariant()}.");
@@ -105,6 +106,9 @@ internal static class Explain
                 + "That is common and not a problem in itself, but the code cannot be checked against anything.",
             SourceStatus.Error =>
                 $"The comparison could not be finished: {source?.Message} It is tried again on the next check.",
+            SourceStatus.RateLimited =>
+                "GitHub allows 60 requests per hour without an account, and this check has used them up. Nothing is wrong with the mod. "
+                + $"The comparison continues automatically after {source?.RetryAfter?.ToLocalTime():HH:mm}. Mods that were compared before are remembered, so this mainly happens on the first run.",
             _ => result.Scan.HasCode ? "No code file of this mod's own was found to compare." : "This mod has no code.",
         };
     }
