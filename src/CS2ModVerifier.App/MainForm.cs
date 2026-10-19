@@ -25,6 +25,7 @@ internal sealed class MainForm : Form
     private readonly Font smallBoldFont;
     private readonly ToolTip hoverTip = new() { AutoPopDelay = 30_000, InitialDelay = 400, ReshowDelay = 200 };
     private readonly System.Windows.Forms.Timer spinnerTimer = new() { Interval = 80 };
+    private readonly System.Windows.Forms.Timer rebuildTimer = new() { Interval = 100 };
     private readonly ToolStripProgressBar progress;
     private string? hoverKey;
     private int spinnerFrame;
@@ -50,7 +51,7 @@ internal sealed class MainForm : Form
         boldFont = new Font(Font, FontStyle.Bold);
         smallBoldFont = new Font("Segoe UI", 7.5f, FontStyle.Bold);
 
-        list = new ListView
+        list = new BufferedListView
         {
             View = View.Details,
             FullRowSelect = true,
@@ -79,8 +80,9 @@ internal sealed class MainForm : Form
         spinnerTimer.Tick += (_, _) =>
         {
             spinnerFrame = (spinnerFrame + 1) % 12;
-            list.Invalidate();
+            InvalidateSpinners();
         };
+        rebuildTimer.Tick += (_, _) => Rebuild();
 
         var menu = new ContextMenuStrip();
         var ignoreItem = menu.Items.Add("Ignore finding", null, (_, _) => ToggleIgnore());
@@ -184,7 +186,7 @@ internal sealed class MainForm : Form
         }
 
         mods[result.Scan.Mod.Path] = result;
-        Rebuild();
+        RequestRebuild();
     }
 
     public void RemoveRow(string modPath)
@@ -192,7 +194,7 @@ internal sealed class MainForm : Form
         if (mods.Remove(modPath))
         {
             expanded.Remove(modPath);
-            Rebuild();
+            RequestRebuild();
         }
     }
 
@@ -204,7 +206,7 @@ internal sealed class MainForm : Form
     }
 
     /// <summary>Mods were queued, or one started or finished: redraw rows and the spinner.</summary>
-    public void RefreshPending() => Rebuild();
+    public void RefreshPending() => RequestRebuild();
 
     protected override void Dispose(bool disposing)
     {
@@ -214,23 +216,81 @@ internal sealed class MainForm : Form
             smallBoldFont.Dispose();
             hoverTip.Dispose();
             spinnerTimer.Dispose();
+            rebuildTimer.Dispose();
         }
 
         base.Dispose(disposing);
     }
 
+    /// <summary>
+    /// Rebuilds the list a moment later. A check sends several events per mod; combining them into one
+    /// rebuild keeps the list from flickering.
+    /// </summary>
+    private void RequestRebuild()
+    {
+        rebuildTimer.Stop();
+        rebuildTimer.Start();
+    }
+
     private void Rebuild()
     {
-        var selected = list.SelectedItems.Count == 1 ? list.SelectedItems[0].Name : null;
-        list.BeginUpdate();
-        list.Items.Clear();
+        rebuildTimer.Stop();
+        var rows = BuildRows();
+
+        // Same rows in the same order (the usual case while a check runs): update them in place, no clearing.
+        if (rows.Count == list.Items.Count && rows.Select(r => r.Name).SequenceEqual(list.Items.Cast<ListViewItem>().Select(i => i.Name)))
+        {
+            for (var i = 0; i < rows.Count; i++)
+            {
+                var item = list.Items[i];
+                item.Tag = rows[i].Tag;
+                item.Text = rows[i].Text;
+                for (var column = 1; column < rows[i].SubItems.Count; column++)
+                {
+                    item.SubItems[column].Text = rows[i].SubItems[column].Text;
+                }
+            }
+
+            list.Invalidate();
+        }
+        else
+        {
+            var selected = list.SelectedItems.Count == 1 ? list.SelectedItems[0].Name : null;
+            list.BeginUpdate();
+            list.Items.Clear();
+            list.Items.AddRange([.. rows]);
+            if (selected is not null && list.Items[selected] is { } again)
+            {
+                again.Selected = true;
+                again.Focused = true;
+            }
+
+            list.EndUpdate();
+        }
+
+        if (checks.Pending.Any(p => p.Checking))
+        {
+            spinnerTimer.Start();
+        }
+        else
+        {
+            spinnerTimer.Stop();
+        }
+
+        OnSelectionChanged();
+        UpdateStatus();
+    }
+
+    private List<ListViewItem> BuildRows()
+    {
+        var rows = new List<ListViewItem>();
         foreach (var result in mods.Values.OrderBy(Rank).ThenBy(r => r.DisplayName, StringComparer.CurrentCultureIgnoreCase))
         {
             var path = result.Scan.Mod.Path;
             var rollup = ignores.Summarize(result);
             var modItem = new ListViewItem(result.DisplayName) { Name = path, Tag = new ModRow(result) };
             modItem.SubItems.AddRange([Texts.Version(result), Texts.Source(result), Texts.Files(result), rollup.Text]);
-            list.Items.Add(modItem);
+            rows.Add(modItem);
 
             if (!expanded.Contains(path))
             {
@@ -242,37 +302,37 @@ internal sealed class MainForm : Form
                 var key = path + "#" + IgnoreStore.Key(result.Scan.Mod, finding);
                 var findingItem = new ListViewItem(finding.Message) { Name = key, Tag = new FindingRow(result, finding) };
                 findingItem.SubItems.AddRange(["", "", "", ""]);
-                list.Items.Add(findingItem);
+                rows.Add(findingItem);
             }
         }
 
         // Code mods not checked yet are listed greyed out at the end, so the list is complete from the start.
-        var queue = checks.Pending;
-        foreach (var waiting in queue.Where(p => !mods.ContainsKey(p.Mod.Path)).OrderBy(p => p.DisplayName, StringComparer.CurrentCultureIgnoreCase))
+        foreach (var waiting in checks.Pending.Where(p => !mods.ContainsKey(p.Mod.Path)).OrderBy(p => p.DisplayName, StringComparer.CurrentCultureIgnoreCase))
         {
             var item = new ListViewItem(waiting.DisplayName) { Name = waiting.Mod.Path, Tag = new PendingRow(waiting) };
             item.SubItems.AddRange([waiting.Version, waiting.Checking ? "Checking..." : "Waiting", "", ""]);
-            list.Items.Add(item);
+            rows.Add(item);
         }
 
-        if (queue.Any(p => p.Checking))
-        {
-            spinnerTimer.Start();
-        }
-        else
-        {
-            spinnerTimer.Stop();
-        }
+        return rows;
+    }
 
-        if (selected is not null && list.Items[selected] is { } again)
+    /// <summary>Repaints only the rows that show a spinner.</summary>
+    private void InvalidateSpinners()
+    {
+        foreach (ListViewItem item in list.Items)
         {
-            again.Selected = true;
-            again.Focused = true;
+            var spinning = item.Tag switch
+            {
+                PendingRow { Mod.Checking: true } => true,
+                ModRow { Result: var result } => IsChecking(result.Scan.Mod.Path),
+                _ => false,
+            };
+            if (spinning)
+            {
+                list.Invalidate(item.Bounds);
+            }
         }
-
-        list.EndUpdate();
-        OnSelectionChanged();
-        UpdateStatus();
     }
 
     private void DrawSubItem(object? sender, DrawListViewSubItemEventArgs e)
@@ -663,5 +723,15 @@ internal sealed class MainForm : Form
             Severity.Medium => 2,
             _ => 3,
         };
+    }
+}
+
+/// <summary>A list that paints into an off-screen buffer first, so updates do not flicker.</summary>
+internal sealed class BufferedListView : ListView
+{
+    public BufferedListView()
+    {
+        DoubleBuffered = true;
+        SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
     }
 }
