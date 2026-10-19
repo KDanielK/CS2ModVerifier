@@ -50,11 +50,12 @@ jobs:
         run: |
           $name = "CS2ModVerifier-${{ github.ref_name }}-win-x64"
           New-Item -ItemType Directory -Path dist, $name | Out-Null
-          Copy-Item publish/CS2ModVerifier.exe, README.md, LICENSE -Destination $name
+          Copy-Item publish/CS2ModVerifier.exe, README.md, LICENSE, THIRD-PARTY-NOTICES.md -Destination $name
           Compress-Archive -Path "$name/*" -DestinationPath "dist/$name.zip"
           Copy-Item publish/CS2ModVerifier.exe dist/
-          Get-ChildItem dist -File | ForEach-Object { "{0}  {1}" -f (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant(), $_.Name } |
-            Set-Content -Path dist/SHA256SUMS.txt -Encoding ascii
+          # Unix line endings, so "sha256sum -c SHA256SUMS.txt" works on every platform.
+          $sums = Get-ChildItem dist -File | ForEach-Object { "{0}  {1}" -f (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant(), $_.Name }
+          [System.IO.File]::WriteAllText("$PWD/dist/SHA256SUMS.txt", ($sums -join "`n") + "`n")
           Get-Content dist/SHA256SUMS.txt
 
       - uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
