@@ -15,7 +15,10 @@ internal sealed class TrayContext : ApplicationContext
     private readonly CheckService checks;
     private readonly ModWatcher watcher;
     private readonly System.Windows.Forms.Timer rescanTimer;
-    private readonly SynchronizationContext ui;
+    // Marshals work to the UI thread. SynchronizationContext.Current was not reliable here: without a window
+    // created first (no disclaimer, e.g. autostart) it posted to the thread pool, and updating the list from
+    // there crashed the app.
+    private readonly Control ui = new();
     private readonly IgnoreStore ignores = IgnoreStore.Load();
     private readonly System.Windows.Forms.Timer retryTimer = new();
     private readonly System.Windows.Forms.Timer updateTimer = new() { Interval = (int)TimeSpan.FromMinutes(1).TotalMilliseconds };
@@ -28,7 +31,7 @@ internal sealed class TrayContext : ApplicationContext
 
     public TrayContext(bool openWindow)
     {
-        ui = SynchronizationContext.Current ?? new WindowsFormsSynchronizationContext();
+        ui.CreateControl(); // creates the window handle on this (the UI) thread, so BeginInvoke runs here
         KnownLibraries.UseLocalFile(KnownLibraries.DefaultLocalPath());
         checks = new CheckService(ModLocator.DefaultGameDataRoot());
 
@@ -132,6 +135,7 @@ internal sealed class TrayContext : ApplicationContext
         tray.Visible = false;
         tray.Dispose();
         window?.Dispose();
+        ui.Dispose();
         base.ExitThreadCore();
     }
 
@@ -264,5 +268,19 @@ internal sealed class TrayContext : ApplicationContext
         about.ShowDialog();
     }
 
-    private void Post(Action action) => ui.Post(_ => action(), null);
+    /// <summary>Runs <paramref name="action"/> on the UI thread; dropped once the app is closing.</summary>
+    private void Post(Action action)
+    {
+        try
+        {
+            if (!ui.IsDisposed)
+            {
+                ui.BeginInvoke(action);
+            }
+        }
+        catch (Exception e) when (e is InvalidOperationException or ObjectDisposedException)
+        {
+            // The app is shutting down; there is no window left to update.
+        }
+    }
 }

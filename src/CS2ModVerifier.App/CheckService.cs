@@ -38,6 +38,9 @@ internal sealed class CheckService(string gameDataRoot)
 
     public event Action<bool>? BusyChanged;
 
+    /// <summary>When the last check (of all mods or one) finished.</summary>
+    public DateTimeOffset? LastCheckFinished { get; private set; }
+
     public IReadOnlyList<ModCheckResult> Results
     {
         get
@@ -185,6 +188,7 @@ internal sealed class CheckService(string gameDataRoot)
         }
         finally
         {
+            LastCheckFinished = DateTimeOffset.Now;
             BusyChanged?.Invoke(false);
             gate.Release();
         }
