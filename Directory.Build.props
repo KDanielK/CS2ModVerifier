@@ -1,0 +1,10 @@
+<Project>
+  <!-- One version for every project. Release builds take it from the git tag (vX.Y.Z). -->
+  <PropertyGroup>
+    <Version>0.1.0</Version>
+    <Authors>Daniel Karlsson</Authors>
+    <Product>CS2 Mod Verifier</Product>
+    <Copyright>Copyright (c) 2026 Daniel Karlsson</Copyright>
+    <RepositoryUrl>https://github.com/KDanielK/CS2ModVerifier</RepositoryUrl>
+  </PropertyGroup>
+</Project>
