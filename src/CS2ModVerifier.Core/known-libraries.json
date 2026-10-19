@@ -1,0 +1,2308 @@
+{
+    "generatedBy":  "tools/Update-KnownLibraries.ps1",
+    "sources":  [
+                    {
+                        "name":  "Harmony",
+                        "fileName":  "0Harmony.dll",
+                        "repository":  "pardeike/Harmony"
+                    }
+                ],
+    "libraries":  [
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.0.0",
+                          "build":  "net35 (fat)",
+                          "sha256":  "dde19eda333bd6807ef0de1243b4e7f2dbb40e1c93f1e0e6328e626ca95dc299",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.0.0",
+                          "build":  "net45 (fat)",
+                          "sha256":  "11f1ccab45d74030f2eac521f97a34311f05ea8afca234811f31715ef991f5aa",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.0.0",
+                          "build":  "net472 (fat)",
+                          "sha256":  "8775b2c551070156537f102c2ad54d969b221e7cf1cb5aea67b3085ed6eb07ad",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.0.0",
+                          "build":  "net48 (fat)",
+                          "sha256":  "82373c15346b9c227fac51fed4862267d72f45fb90ef235aa5e6d49c36f04445",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.0.0",
+                          "build":  "net5.0 (fat)",
+                          "sha256":  "901698e0e1072ce839ffddf3128437fbda454584fa948c1b126a01e9cd9ac2bc",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.0.0",
+                          "build":  "netcoreapp3.0 (fat)",
+                          "sha256":  "efac996409ddb477d3809395bcc002eea131398425cb5799b558f11073744e4a",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.0.0",
+                          "build":  "netcoreapp3.1 (fat)",
+                          "sha256":  "e2577b65210aa41a4fbdde47e3c5fa485b6cc5017709d19cc7685c9c1954ffc1",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.0.0",
+                          "build":  "ref (fat)",
+                          "sha256":  "4a9a4bcdc724c98b3b488e2f7926b643850962536e8b7e260528c7aff8c075c0",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.1.0",
+                          "build":  "net35 (fat)",
+                          "sha256":  "c985afd8e70d82f4bfc675fdc9c13be323ea637a13a93bdee43c107e4bd772f6",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.1.0",
+                          "build":  "net45 (fat)",
+                          "sha256":  "fd5f3e54c0b49acf7b0816bada32ea55a83ed06280a71a103c52e07f207d74eb",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.1.0",
+                          "build":  "net472 (fat)",
+                          "sha256":  "19ce60ac3280f72ec1751d36a40cb7e2fece2934df8345969dc7feb83bd633e4",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.1.0",
+                          "build":  "net48 (fat)",
+                          "sha256":  "f3c7c9e1bc0434979805f7a8442d74d23c3fa01c9a365a90005e05f0ce38b0bb",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.1.0",
+                          "build":  "net5.0 (fat)",
+                          "sha256":  "d99b4ca6ec6c4a01b97e7985beed1e5fc03a77d1ec06ff4a1da8cbd31bf5ad28",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.1.0",
+                          "build":  "netcoreapp3.0 (fat)",
+                          "sha256":  "c1d78ecace0fee4397f50a34743e20ce322f7ec226953a5d0179fe001d94f181",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.1.0",
+                          "build":  "netcoreapp3.1 (fat)",
+                          "sha256":  "7f4afec044a09407e693e1ff7e98efcf0c7aa32e3c10ac1945ca0271a68e2902",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.1.0",
+                          "build":  "ref (fat)",
+                          "sha256":  "6acdbd60cdb962049d1ba506c288b7c11e719e7cfe52ef4cc95c20ac17e8d339",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.2.0",
+                          "build":  "net35 (fat)",
+                          "sha256":  "9611251f080e4855cd9d5fa54b5e56034df25b70b374c49ba09550b08a1bf875",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.2.0",
+                          "build":  "net45 (fat)",
+                          "sha256":  "6928f117d52c0683c44683c0656cd5a345d21aa45720b11c64dc72a35771cac5",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.2.0",
+                          "build":  "net472 (fat)",
+                          "sha256":  "d04ec5b2590dd1bbb57f0f11dc417b1a5bebbb36b1f97006d35f2d87c3a2a69f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.2.0",
+                          "build":  "net48 (fat)",
+                          "sha256":  "0de0118c8f1d4408de389ca33b46d2ff7778f3a8541b430cae729ec913d899c7",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.2.0",
+                          "build":  "net5.0 (fat)",
+                          "sha256":  "76014da14770af38ab3d32553a781a9f642f6fe44eb3451ab49389b4f56d3614",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.2.0",
+                          "build":  "net6.0 (fat)",
+                          "sha256":  "7172993f57541fe4a4bfaf5df5774fb6a42c4100df1457a33c0bc20a914a8c00",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.2.0",
+                          "build":  "netcoreapp3.0 (fat)",
+                          "sha256":  "df478ad53669d5bca769135e6be823937f9cbee2b8a7d34d34d266f7681dc6b0",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.2.2.0",
+                          "build":  "netcoreapp3.1 (fat)",
+                          "sha256":  "9d7fc1c44bd940727d1e65c58ec01423d90611131807dc90ce42a19c609f60a5",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.2.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "net35 (fat)",
+                          "sha256":  "7133e658a716baa0624f256540abb675f561c73e54b1a9509a53daa62e04c878",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "net35 (thin)",
+                          "sha256":  "0f389d32bd9cbb26de486187c5b0368375f6608bc19359afabaff504d5b42bce",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "net452 (fat)",
+                          "sha256":  "4c7f91ae506f0d6881bad401da2cd97197d6ffb02453e35aebe27e5e2a57473e",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "net452 (thin)",
+                          "sha256":  "727ccc4c939144a582dcad4228f36428e332ce9e736331a61966531219b748d3",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "net472 (fat)",
+                          "sha256":  "7831785c08767b152c0a785f3000d8d34a10d9c18939ed4ef9eb3b586988c3a5",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "net472 (thin)",
+                          "sha256":  "68cf2509efe64919d453db5d37e8598ffecc928ab218c6610ec6989595fdb0ec",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "net48 (fat)",
+                          "sha256":  "25c71407d467da880f602503e0fec696dcf818124b36264bdcb98b1cbe82b66c",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "net48 (thin)",
+                          "sha256":  "d4c6791e6e09f6ee8d6e54f53a57343ae4d9090b084814d7ef1ed79c8bda230a",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "net5.0 (fat)",
+                          "sha256":  "5646912d4d09d363be5722f285d8a7375f4728e48360e9c70378ebf4c209a18b",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "net5.0 (thin)",
+                          "sha256":  "9dbe3eeb8b229ff72fa9f406add609809a781db13066147667b9ad44184b253f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "net6.0 (fat)",
+                          "sha256":  "82bdbf40a7d416e8aa272ddce29b959095c625676b1054d2e7f5305f54d61988",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "net6.0 (thin)",
+                          "sha256":  "50353e5d47f7d25c88e4c1a84f4a9970e5e2dd59a721df8dcbcb897fabe2c9e4",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "net7.0 (fat)",
+                          "sha256":  "5588b2b5eedca8ed859777feda3428b9590939a15f575e68f609bded801ac4e1",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "net7.0 (thin)",
+                          "sha256":  "8121dfc5ea392af98ab8fba6d2d8736b11c57f7896847f81547dd5965b3ee3fb",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "net8.0 (fat)",
+                          "sha256":  "4ec6102ee62e1f695c2034df9275a70a6c1c62e96f9950c759a8e11ede71b80c",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "net8.0 (thin)",
+                          "sha256":  "dbef0153bcd55d6f93acb35f29b75ea5245ef092d894e5a090fd294c6aad3340",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "netcoreapp3.0 (fat)",
+                          "sha256":  "e2c42e16955eed526774e86dd3233e6caea72ff43fd63f4abc9503bf2d62ea05",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "netcoreapp3.0 (thin)",
+                          "sha256":  "b2bb0e0a640ae385d6746d66c627f150569f26d2a24346f494fe9e0400a13235",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "netcoreapp3.1 (fat)",
+                          "sha256":  "a4a3aac0e00b529b743d326465adaad476c04cf2eec86c6cce1818d68c331609",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "netcoreapp3.1 (thin)",
+                          "sha256":  "551efd5b91650a80cdc98ae5165af77d4d97f0f17d52496f0bf99a6e1595853d",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "netstandard2.0 (fat)",
+                          "sha256":  "55610f312936fac576ed1f07a7c10b0a1ec719cd750b8e08be76a7faea306650",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.0",
+                          "build":  "netstandard2.0 (thin)",
+                          "sha256":  "3ab5e71ff9716f1418dd4927dd32b669d32306961e4ff6e1cbc5083ec29da4a7",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.1",
+                          "build":  "net35 (thin)",
+                          "sha256":  "b2a9af1415041f97646fde9914cb57a3671ba6e303996e2c798d8f461b12c601",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.1-thin"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.1",
+                          "build":  "net452 (thin)",
+                          "sha256":  "92a486fa0da1572da4aecae6bf505f01cf0130e99c09a27bcbcb1a8c7d5e3910",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.1-thin"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.1",
+                          "build":  "net472 (thin)",
+                          "sha256":  "e5b581018837994152c900bf46f5e32551071fb392134f890467cfef0d4fe563",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.1-thin"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.1",
+                          "build":  "net48 (thin)",
+                          "sha256":  "6252765ef823fd849411ddd923b99a6828c8ac8375737ee8ab8d406560d172ac",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.1-thin"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.1",
+                          "build":  "net5.0 (thin)",
+                          "sha256":  "9e705329c3f32f33ebea7e6134a62821a80c4b960c603a73ff2689e9c0aebe62",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.1-thin"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.1",
+                          "build":  "net6.0 (thin)",
+                          "sha256":  "0ad763a7b5e7ba0acc4c6f3ad440e79d9aaf866c4cefb8d9158ca9d1b5e1e0c3",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.1-thin"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.1",
+                          "build":  "net7.0 (thin)",
+                          "sha256":  "cdb0882037d7cd59508e458d216a911107e2a4e63c3614e621084e4c3b2eed7b",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.1-thin"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.1",
+                          "build":  "net8.0 (thin)",
+                          "sha256":  "310ec600c8e1b083954b8d89cd2018b02b509766053c1f35b5cb85d80f5cee9a",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.1-thin"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.1",
+                          "build":  "netcoreapp3.0 (thin)",
+                          "sha256":  "8ea8903c7ecff185e6388b653877619351e5a4e72b5efaeebe269c72abcd6c9a",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.1-thin"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.1",
+                          "build":  "netcoreapp3.1 (thin)",
+                          "sha256":  "6ef2123445b1f1b4b93d20d5cc0d0e6248cbae3c17dd4dae3584c658c19b2f9c",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.1-thin"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.0.1",
+                          "build":  "netstandard2.0 (thin)",
+                          "sha256":  "8a2024d953230c606d9b03ad288ab010df82ea75fd25fa9a8a1dab04caf44465",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.0.1-thin"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "net35 (fat)",
+                          "sha256":  "ae08926ee98a36a689492fdf820bb4136962ec930c0779039e6523d316316239",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "net35 (thin)",
+                          "sha256":  "80b8b17cf8a557ce35b194240796bf09d2bba9f916d8d8442b109c2ecef60b33",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "net452 (fat)",
+                          "sha256":  "f109d3a6983b6425f6167b0205bb63963417f0486893f9bd3c0f91c53f92d1e5",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "net452 (thin)",
+                          "sha256":  "f1cacf704debd4b196e4836e87303da167a8025cbbd92ece2df8149a6b475773",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "net472 (fat)",
+                          "sha256":  "e90b222f63da7e63037d45976fd438653a3aa65dac62dc21d59606dc95e4c3a7",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "net472 (thin)",
+                          "sha256":  "7405baf56417d9555fd95123e15fbb790cbad58aeb694c2a98942b93ae3e8e4c",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "net48 (fat)",
+                          "sha256":  "5f7ad0df1eb08e81f66d4006d3a9e5cb40fc05e381f36d7bd0513f334f6a251f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "net48 (thin)",
+                          "sha256":  "fe4cecaa9f3a2f6db5748e897cb1c1726d40c9e2f95aefd21b2d04d74cbc285e",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "net5.0 (fat)",
+                          "sha256":  "2bcf1befb5cefb812bc7bb90d9afb2f212268d1a0d1b97058c7cb22ad0a33544",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "net5.0 (thin)",
+                          "sha256":  "01f446a4166030699df5c2e220f87cec4180f3c2b5fa3621914f4f3329839de0",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "net6.0 (fat)",
+                          "sha256":  "01bb8f641a2516685a949442b24a78cb78bb0aa5ae40fdd917564b4d93d86549",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "net6.0 (thin)",
+                          "sha256":  "fadaae3ab11521401a5b18b92d98e08d2c8d0b500a06beb14bc69f1e11a4fefa",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "net7.0 (fat)",
+                          "sha256":  "9f70d4a36f24fecfc33c156a5a6bd3328144da2a476884f06ed6ba19343ed6a0",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "net7.0 (thin)",
+                          "sha256":  "49dbf1cb1e685bbf8a9e6156738e6b1c79559a5bc05b4a7a24932616ca01740e",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "net8.0 (fat)",
+                          "sha256":  "f43da508c36b9395566346a26b9719a9b35fbd4f8edc88d341dc524b1577fe09",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "net8.0 (thin)",
+                          "sha256":  "8a2588b6a2c548f4087bce0825eb744beefdfe7a263f927756b90efd047abbdb",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "netcoreapp3.0 (fat)",
+                          "sha256":  "e7fb52634c39412eb8faf9be356684905cb374d045099209d767bee486579ffa",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "netcoreapp3.0 (thin)",
+                          "sha256":  "8b3ced82b4bfc9b72a1b017455dce0fffc2b8436e96e9f7fa28544c3d938df27",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "netcoreapp3.1 (fat)",
+                          "sha256":  "7eea9dfc492c04ded668e2ca5fe849a9977eec20a47d01cf807e2bd96e748946",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "netcoreapp3.1 (thin)",
+                          "sha256":  "f50366dde3c7a1d96be145b3e14b3c72c24f0d7b292ba3d0c59e01771380f480",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "netstandard2.0 (fat)",
+                          "sha256":  "5b32ae74fa3cf018b9c19bdbddaa7363ac8097407cae73275265106a566dfe4d",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.1.1",
+                          "build":  "netstandard2.0 (thin)",
+                          "sha256":  "951b4dcf8bab8b64a08d478a7577f126b15e026c4b2215fd9b9cb08b6a86d9bb",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.1.1"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "net35 (fat)",
+                          "sha256":  "8881ac0499f6fd8583641ebbd40d50642f4aab5e9932fa31c174d249864476cb",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "net35 (thin)",
+                          "sha256":  "615791651eec8f9de96c25520951551f3f636a1d21aa3bcc20ef31dd7672d674",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "net452 (fat)",
+                          "sha256":  "d7b84609d59cc5b6acf71095336deee620b6a54a4b759f4a5e2f49d3bd93bc29",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "net452 (thin)",
+                          "sha256":  "e1b0de599faf79ba829e799c350d8e2533ddb33d3b28d34ed0efa8c7be717141",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "net472 (fat)",
+                          "sha256":  "e3dc57cb7bae96d16a7da0f2d99f64dbc092da00e07a68e46bbc9bb32226e14d",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "net472 (thin)",
+                          "sha256":  "07bfa78e25c0b5815404a60c016964f8f09318ff85ace210cc602c7d2431c13c",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "net48 (fat)",
+                          "sha256":  "1773b148a390718c53618c9a68dd377d36fec319f81e46ad26d073add5e28696",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "net48 (thin)",
+                          "sha256":  "a3efb96db44185e459d279c32742691171851ef84dbcf7bc19a7f306674dfbd0",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "net5.0 (fat)",
+                          "sha256":  "fc0b11825f4626540b7ed51def188eeb8487352bb29d84dd67c04ddf123d73b3",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "net5.0 (thin)",
+                          "sha256":  "ec151de65eac0e20238ef71c6c488e391449321a6773e4fc3b1876fcdddca220",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "net6.0 (fat)",
+                          "sha256":  "ac06199ee6a617729a15a5470d0a66ea5387dc978eb8c236b1954577bbf82448",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "net6.0 (thin)",
+                          "sha256":  "052ac66a061bca39c7ade3ae5b35c93ec3a1e12973e2d4f7837ea97570d25f04",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "net7.0 (fat)",
+                          "sha256":  "d5adb2b3bff3ea2e8e7eb80dab83e03b6500ac42f687d797bad420d506dc69c9",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "net7.0 (thin)",
+                          "sha256":  "645aa82101c94c35db1772c1d56f5c28cf4061cd4ac8aac14404dda28ed770f9",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "net8.0 (fat)",
+                          "sha256":  "8037373e605608740cf42c6c684251ba44c846327023d531ba943c1676b4be7e",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "net8.0 (thin)",
+                          "sha256":  "0ee52cb42f9f79df402fd0fe791d996fb2c84a291d18643b923d20007d43165e",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "netcoreapp3.0 (fat)",
+                          "sha256":  "48917a0b154a2c16a62d8184afd669498700e4e159062a40592e87ed761c2d3c",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "netcoreapp3.0 (thin)",
+                          "sha256":  "eb54b131c59a00d6bb1ee00aee89fea59ae0e513f23504e1495501e83c4db18b",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "netcoreapp3.1 (fat)",
+                          "sha256":  "76df21991aca82c76bf0933704863002f946dc107943c49176c3364ae6bd0467",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "netcoreapp3.1 (thin)",
+                          "sha256":  "4c4eb0f4f192bf6a273bd09f97d421055bab596fb9e9bc03b480d55f9f02924c",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "netstandard2.0 (fat)",
+                          "sha256":  "5d64762ace504e106211f498e8a8e9b68b5b7affbb5ebe4c4e49a5093f7204ba",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.2.0",
+                          "build":  "netstandard2.0 (thin)",
+                          "sha256":  "e2b26aebcaad78835752af470f0e848164c91cbac04879d71481e2570bb6890f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "net35 (fat)",
+                          "sha256":  "4dd30c94d920c3ce797d70402ba44a7d9c601902ce22647c4594c47d54ea624c",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "net35 (thin)",
+                          "sha256":  "b703fd68f04bffec48a76f8c01ef5c8725893531358f1e75174026e6b1bc3e05",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "net452 (fat)",
+                          "sha256":  "4c06bb6d9d75785f9b64fd551fc75d54af9d5a5458a43cfb5bf52a5a22b24e6e",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "net452 (thin)",
+                          "sha256":  "7b142ed219988fb31b456afb7b183681c6d4ec5467e9be2eb2b18b2396f3f17f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "net472 (fat)",
+                          "sha256":  "e96fc01100b6bbdc094b900efe47850cf97aa9df7c6a78cbe723b1decf5a506a",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "net472 (thin)",
+                          "sha256":  "94e4a159c60f1630901ed7cbfd5ca4f71234a6a9f61339f23acd0a28190eed7a",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "net48 (fat)",
+                          "sha256":  "498ede1d20a87afaa6c7b1ed5b3beb505b01dc418b952c1be5c322204404b033",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "net48 (thin)",
+                          "sha256":  "6888082268d4a57d114fbb568e20713d6a749bf30e2aa912eb14401752dc6491",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "net5.0 (fat)",
+                          "sha256":  "a15f4f9fbf3099f87b3283a999ddd29e9c4c65075fa98a47893fb985032ff28d",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "net5.0 (thin)",
+                          "sha256":  "4b0a48565869084d7c397ef76efe82bca91727fae2b688c6c83c6ff9679bf5e4",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "net6.0 (fat)",
+                          "sha256":  "dd0de0d99750e92731f5c36639f48d75fe0b52ec9dcb21a659c7910215e2b3a5",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "net6.0 (thin)",
+                          "sha256":  "eef584d0e8d8740718da5555ab037d99a726293b3396f1f0679f8fb139307e99",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "net7.0 (fat)",
+                          "sha256":  "c588a3c681818864769b4bd331f0602b71be0b2bf4fb94a32fdbf9ee1636d87a",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "net7.0 (thin)",
+                          "sha256":  "ab564a6454e93038d74fff442756bd471c87ab3630d1882a50a94b0da6912c5f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "net8.0 (fat)",
+                          "sha256":  "4b5f44764316c833a3b1d184ba6f1df275c86a181cc595ec403a01049d1d6fb5",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "net8.0 (thin)",
+                          "sha256":  "3cd925f6bff0068c26c45793e4684e17cba4e2403c37c207722ffb3cd76d2ae2",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "netcoreapp3.0 (fat)",
+                          "sha256":  "7bb7b9cf491bab74ae5cb71273f5ebee875e4456467eff05d96b3d43a62065a4",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "netcoreapp3.0 (thin)",
+                          "sha256":  "1b64e6a1b9c966f650189726c1d56d1f02678c7ec60a40a13e5ade2baa712272",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "netcoreapp3.1 (fat)",
+                          "sha256":  "44b8c143dd393c91aa2091f6cfb1ce17799befc11ec72de4d79822150cad5f4c",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "netcoreapp3.1 (thin)",
+                          "sha256":  "72a94947b6163cc64e8af47c00f05c688c666c27302b7372ccfab4c054a460d3",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "netstandard2.0 (fat)",
+                          "sha256":  "764d999a2e5f3c186b71d1432f2839f61c249fca3510f04c63acb4c28908c338",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.3.0",
+                          "build":  "netstandard2.0 (thin)",
+                          "sha256":  "bfba4b4d0f68f1d461c563f8bf777442337e0715cb30c819d3300109f1b9722f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.3.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net35 (fat)",
+                          "sha256":  "b8d8bff83fe5e0eec0b6822c938890355c691d10c616ee47d2179ae40ceea5a6",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net35 (thin)",
+                          "sha256":  "0c62919d1299c5a44e23e42a19519ba424bc03c3bf77540d2f1778607b351eb6",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net452 (fat)",
+                          "sha256":  "c0e9b894551ed6f4463aa8d272638e281e5398bec9c8f3a4b9c74b2f45fa3406",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net452 (thin)",
+                          "sha256":  "0ec66093e508b998f2f265be70260251937bb958085510bd0b2f971db487a491",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net472 (fat)",
+                          "sha256":  "ed1da11087f5a65a16f32f9c587a424cae70297037279a4eb1dd417927dd2219",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net472 (thin)",
+                          "sha256":  "829279330677df26b59a4958ad45995de907df9b38dcd2296b04e098ba5bccd5",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net48 (fat)",
+                          "sha256":  "24a018315f2a7e12b281e347b4ea6f4736ff9de674153708d39825cf588cf2a5",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net48 (thin)",
+                          "sha256":  "c9ceb44eacf1d61dd3df81637d69530873952c4ebd65e10e8a35763a53059ede",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net5.0 (fat)",
+                          "sha256":  "5815edc1f13b8e7b78a4328e260f772da699ee1e1a76e6d926502f9da7028814",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net5.0 (thin)",
+                          "sha256":  "fe53f84fa0e050f7d1753543b3a5472252595540763a67bb258ab59c40a9cf5c",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net6.0 (fat)",
+                          "sha256":  "1754814b7ae159637f5f736dc51b0a1787e5e68ff58305518241e6babd5f2080",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net6.0 (thin)",
+                          "sha256":  "edd375514552fdf4537774bc8a2a7df38adb1828df43a5bcf2695e455223d85c",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net7.0 (fat)",
+                          "sha256":  "9d8d2e5d6effc8e9458f279be08a7a514136005615868cbdce15687b44bce05f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net7.0 (thin)",
+                          "sha256":  "8ffeb4ce0e62b23105528fada73ca2d0b3edcf4ffc007f790d0600ac24c335c2",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net8.0 (fat)",
+                          "sha256":  "dbb30ab6d394da6104c5fe0b26b767ef9ca99a15e185f529b5eaf359432bcf23",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net8.0 (thin)",
+                          "sha256":  "609ca6117efb1a9f7a00166de649793718f657eb2f75234d001d91adf3a9cc33",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net9.0 (fat)",
+                          "sha256":  "2765d35ac63ea16b2811ea7bccf6e9bb194b0fe4a757dd86fdd81b19b3177c94",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "net9.0 (thin)",
+                          "sha256":  "d9a17f62a9c9d5e262c9f26baa39bdff25d1fcd6a4d2f433862278bd8b1f5a1d",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "netcoreapp3.0 (fat)",
+                          "sha256":  "7e9b621bb40b5cada7f65ef772ab31f47b142c31ce3e42c3ec6e90af1411ce47",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "netcoreapp3.0 (thin)",
+                          "sha256":  "2e6d596be89cc4b339b4c793a87071644fa82184e1fd7ed8a8ab8d0c349ce98e",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "netcoreapp3.1 (fat)",
+                          "sha256":  "4e0896f2ca9cf986905f23d8b9acd379f15e8adf787b385592e51d27b8ef6077",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "netcoreapp3.1 (thin)",
+                          "sha256":  "75f45b0372d74cfc0f22f3e6d5802d6d9f7eda893cdb5bb7095bf90443076d48",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "netstandard2.0 (fat)",
+                          "sha256":  "378fc08dc60edeb848b00fb1c63275c120d7c9f3b412f28a9bb389fa5198dc34",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.4.0",
+                          "build":  "netstandard2.0 (thin)",
+                          "sha256":  "98055bedfc9738305d2f3b56b7ec0de6e1257f914e3386080fa851caaa323d65",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.4.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net35 (fat)",
+                          "sha256":  "b7fbf5c4f3ff5e7fb5a11d303ac1c4fc5f0ef046294b29d79e8b5265dd883164",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net35 (thin)",
+                          "sha256":  "841938ee09334172ea2e08d9f139de7d2483585cec88ce99dd17eed93cdde3cd",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net452 (fat)",
+                          "sha256":  "65531db40e0be57dd0e8ae71a90ef3c7f9a2f3c06f259869661b5cc41d999e38",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net452 (thin)",
+                          "sha256":  "f9fc0967cfccb224c869fd80577096f7d9d894160f9046d902c730ba066896bc",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net472 (fat)",
+                          "sha256":  "3ad903554018a8fbfb297ccd8c44c1bdf20de3112a2d27f160dfac280388fdfb",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net472 (thin)",
+                          "sha256":  "7eac1511ccbd182b7ce799d57c498690a8a6a654c5be763c7b6f643779f7951b",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net48 (fat)",
+                          "sha256":  "b5282b59bdb9c4f1e8a96526b102e9dd8d97f11517000117567c8b1e9b9f610c",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net48 (thin)",
+                          "sha256":  "e2aa5c61ac31a6c5ad1d2adc09dbb36e724b03976e79f755ca8469c35454301f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net5.0 (fat)",
+                          "sha256":  "5b3d4f39efa720de426680867a416fa31755208195d365f2ab7d00bda09a957f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net5.0 (thin)",
+                          "sha256":  "91144becc2832000118ca9d89e5e1e353889db8dce1fb8d74fcfd835508e4ffd",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net6.0 (fat)",
+                          "sha256":  "f1d64a21616375eda5d7fe25c7845ed4f4627b879d8d4432de6a8871de40391f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net6.0 (thin)",
+                          "sha256":  "068a07a773ba57040223014772cb270e93621a14f8befcea6399e4caecdf3d94",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net7.0 (fat)",
+                          "sha256":  "cdc1845f4f64c294bbb20f1d21732693605146583d789612fde2dadc1c2cc3e3",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net7.0 (thin)",
+                          "sha256":  "a40a098017bc06c584455d0f8bf540fea99bdbd4cda8f48e714de050219b1e3a",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net8.0 (fat)",
+                          "sha256":  "8a20bd749236b71536e79088d1ca6597277df3f90e0d3c92ff1bc4f9909ce5c2",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net8.0 (thin)",
+                          "sha256":  "ba63c716e1ebf83860a4de35b742c2619e8de284e3d23e9e9b6bc1505812f1cc",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net9.0 (fat)",
+                          "sha256":  "6f1cd7a96e6ea884384d49e626bc4c364e7ab138b9fbf010a5380bbffb31c74d",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "net9.0 (thin)",
+                          "sha256":  "37774fca9108852d37fed8ebc0fff9e0ef2d97ea13c41718363b88351283cd42",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "netcoreapp3.0 (fat)",
+                          "sha256":  "5aa9d76e9188efcf3a3c329cb48daf7d2fcdc02e1792ac7aeb5aff9041a9f9c9",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "netcoreapp3.0 (thin)",
+                          "sha256":  "eb9c23d4cd63cafb1d6982c34f375117fc6254fb41ab9be3c1eb502cf9a68211",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "netcoreapp3.1 (fat)",
+                          "sha256":  "b4a9348f58032a0ebf03bb88a3783cfef61d76b7e9ee9336c78980c23f61f9ea",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "netcoreapp3.1 (thin)",
+                          "sha256":  "8546dbc1d5b6af917e0471eb09b4505f04a85b1aaee4f37f7a4f131edc1fa541",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "netstandard2.0 (fat)",
+                          "sha256":  "aec14449f50f602d0ef46529fbf04e823c5e392136559a29c8d94f3e30358983",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.5.0",
+                          "build":  "netstandard2.0 (thin)",
+                          "sha256":  "a15528ca804643b7201488389c9f743d98a063a6666a02386bb7c531f128131a",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.5.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net35 (fat)",
+                          "sha256":  "4454f2f098cf3ff83683849aecdfb3ce6c64dfd929baafff5e34d8f2b538ddf0",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net35 (thin)",
+                          "sha256":  "4adf7853fe89e467b049131f7eb3e8b2d73820616a8ab8b3d06f64e444d2d22c",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net452 (fat)",
+                          "sha256":  "8b9ac87fac0ca90f1b6b89d42e33deb78409b2dbce40f63024e3038504e46010",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net452 (thin)",
+                          "sha256":  "d101d8f446a48d1cb852a3fd8506a89b59cbcf78abc8af996abed18b67fb3323",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net472 (fat)",
+                          "sha256":  "7051d2c1154db0cba40fc0347caae76e64817f32d3faa4d420a9a19048d32842",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net472 (thin)",
+                          "sha256":  "5a75a132d970bb878a1ce009ccecb1497b7723fcb83a104d36c846bf9308121f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net48 (fat)",
+                          "sha256":  "ac6680dbd3e00d6b0a1d4e9e214144c77fed274527a6a35162f7e5d99d68c7fb",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net48 (thin)",
+                          "sha256":  "965a55183dcfa53c5f43b77a981b4e2f1cbfa4502ab8449c3e7bd988014d3484",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net5.0 (fat)",
+                          "sha256":  "64334f340952fda6fc3744093ae06c2d13645bf07f6d67620737eba5ae487c72",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net5.0 (thin)",
+                          "sha256":  "55d8033edbe5b8eb03ecf0b3c30920b866f33538e6c9f6596740467cb0488863",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net6.0 (fat)",
+                          "sha256":  "23379600f3001671385291b7bd4a8c5475dcfb5535690726f0fb50d353d28d68",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net6.0 (thin)",
+                          "sha256":  "4e0fe1edaa58d8127a381c82cfd47ddd6b034cee4e8f9733ff4a8ab163a7b376",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net7.0 (fat)",
+                          "sha256":  "9d982f33e6d4677f74238aef9652c8d03d9078ee0de5b69929a99e67d9735452",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net7.0 (thin)",
+                          "sha256":  "cb0a3d82ece2c094ac16f168defe6fad178da137a17c329b03f579c72efed627",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net8.0 (fat)",
+                          "sha256":  "a89d2b8943cbcaf584e743409beec28f5c6fa13920171e06f98870609725dac9",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net8.0 (thin)",
+                          "sha256":  "b5a277a824868fd87180bd12f21a0ab58d8d3090e4824673e25a8aec1aa73713",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net9.0 (fat)",
+                          "sha256":  "80690e753ee7350fbaf8fdcd1d0d742fc6753292f87bd41c71351746464d527e",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "net9.0 (thin)",
+                          "sha256":  "4f47cdc32da9db918924a652b116f98e149188057775d366aad6645328fb404f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "netcoreapp3.0 (fat)",
+                          "sha256":  "21e85fd07be84f196605bee19de13513ed03eed27d48ba110f69b622efc9f19d",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "netcoreapp3.0 (thin)",
+                          "sha256":  "2821bb1fce8d7255f84bb57221c85ec83a9da59150f4f46ac1f85c66a3366641",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "netcoreapp3.1 (fat)",
+                          "sha256":  "dcc2fdc3d624efd23b215a950385d3f9923e645d91c3a1b4f30a175fddda61c5",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "netcoreapp3.1 (thin)",
+                          "sha256":  "13ca3f2a10586971fbfa1c92f2ddcae84ef35bbc650f1fb442e3b8019b99ecb9",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "netstandard2.0 (fat)",
+                          "sha256":  "f477c780b1487071888537d58c2d419668be3de556d4917a84eadacaea3c26a0",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.3.6.0",
+                          "build":  "netstandard2.0 (thin)",
+                          "sha256":  "2ab3867a41f1a45dc1bb93e9de54e3660a6c5c578238152f5834f5c5ba3270f5",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.3.6.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net35 (fat)",
+                          "sha256":  "fad60573aa51ef2011e983f2123ec85dad11b801e92fb30f7061234169d71e42",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net35 (thin)",
+                          "sha256":  "798ffe9a6c2447694bbd3a5adbbc9c35520c2909c3be2fbeadde68b63fb3e7c8",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net452 (fat)",
+                          "sha256":  "c70a40d841a9e0b8814f904159c4a600ee4d963979a86ff2f9b847e67df3ee13",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net452 (thin)",
+                          "sha256":  "2775b01f1a44f807419b6000086c5dc519b810d86a575f304488580401c8b636",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net472 (fat)",
+                          "sha256":  "7aa9d208e9b4c42c65bd816038dcad85c15fb59d8362963f6b538de8f3e56469",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net472 (thin)",
+                          "sha256":  "14f333303cf9c4b5e34739e6a0a16bd468b973821a901dafe2b4d38a8afc6e2f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net48 (fat)",
+                          "sha256":  "cc5ce9d1da493f9e5e72442bd029e88bf390d77bc3923e2d6d67061d26884342",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net48 (thin)",
+                          "sha256":  "6904e98a286273d07a7ddc15ddf9e34b8c874d295ef7bb384c8d244ff7ce7c00",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net5.0 (fat)",
+                          "sha256":  "8683313d296c23716a7dcb875a068cf36914e172e775a17cc3b4b63859f7f900",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net5.0 (thin)",
+                          "sha256":  "4df47b46885204238ec2493eabe93430a752302e0644c35358bd9c26f00967f6",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net6.0 (fat)",
+                          "sha256":  "53aa0e9f7b6a3b0bc29c7a293f8f98492bd244bb72f96b41ff288ba98d94da7a",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net6.0 (thin)",
+                          "sha256":  "a75df4a05fa7d0824c04c43092908d3b3731f2240811cfb3ea223f9af41587d0",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net7.0 (fat)",
+                          "sha256":  "b60086aa81156def63fd4a1e875b998c9b0862cbab03443dc0231fd48eae965f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net7.0 (thin)",
+                          "sha256":  "a8e7fc87be02fc18ae6ad7c30350162309a4a9cf6901a1679aff18ecd33ed4da",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net8.0 (fat)",
+                          "sha256":  "9fd0a533ee3ef0ca07f9ee7a1b535426c3badf2a5aea550126eacee2003cabe5",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net8.0 (thin)",
+                          "sha256":  "3b249d2c35a7a5a4c66866cad79e774aa0ab26bf91ad4bf7beae167a9d798009",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net9.0 (fat)",
+                          "sha256":  "81bb9e42e053309c3f000e9cd22895081f155e43e1e4074fcae681832afb5ede",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "net9.0 (thin)",
+                          "sha256":  "10fab8a7a34522ae08e98d4a236462ffe15494ef919c5e96ab5b5d46806d1ffd",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "netcoreapp3.0 (fat)",
+                          "sha256":  "33a43567e1ae5e5aba86edda433ffa4cd3a0511f65d215b07a03048b494746f9",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "netcoreapp3.0 (thin)",
+                          "sha256":  "a19bb206fba572a3b3476c5b05d968cd3db26911f701e5c4e2d0bf75fb2bd23a",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "netcoreapp3.1 (fat)",
+                          "sha256":  "134c2d5c00f23ac705f4392ed758206b8343b0b42bb7c4ba1b992cde8b84691d",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.0.0",
+                          "build":  "netcoreapp3.1 (thin)",
+                          "sha256":  "9e3ff5871057c744320a93e85c09c2f72ff067b3654e0e2167dbc0294995bf24",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.0.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net35 (fat)",
+                          "sha256":  "80d13783a39f00d7c69e0673785f90c0f6421a78acb623c37a63f51a8c3dc8d3",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net35 (thin)",
+                          "sha256":  "f0658ff77ae1cf5d853879ab699685a74254320ce552e1e6dc74c909154077e7",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net452 (fat)",
+                          "sha256":  "1b76a3c4b5af88fea58bf3f3fcda09afebd836166b1f6d0a64385dda2aa0073a",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net452 (thin)",
+                          "sha256":  "7d45cc879abcfe475944264d669b660a9164c76913bfc6a1aadefd24345c08b2",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net472 (fat)",
+                          "sha256":  "353daafec180bb8e7bbe4da78f2a7cdc78067392e3a4e79dc8e7af295f2371e6",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net472 (thin)",
+                          "sha256":  "3d59e2a527bb6d7e4720f41ed33c1e8233447d9f6ef09ccfff142f4a0b196cf9",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net48 (fat)",
+                          "sha256":  "932b52a8b17fb24ea906b02e36d0372d5e8ee62f3ff46225d089413d92b341e8",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net48 (thin)",
+                          "sha256":  "ed35f7e1a9ce3c211ea7629b446bc747c243359acb6adf64075e76426dc7707d",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net5.0 (fat)",
+                          "sha256":  "b03af6fbff59e00f29e2d5b87bad877d09753e4465b596346ddc1b10e6938fce",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net5.0 (thin)",
+                          "sha256":  "c9d3c1bb894e7b314e6d3ccb8aa07fa94a540d05821babb66bdba929746daae9",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net6.0 (fat)",
+                          "sha256":  "b37859b90b66e5b0fabe8b157b18379bf9b03c8739a65044252297062e6b2212",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net6.0 (thin)",
+                          "sha256":  "39ed02953488f9830c5a752047c178172a865c0d7f6902dd7b2f317389f2427f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net7.0 (fat)",
+                          "sha256":  "d7686fb2e98436d74d9f56ca3974736118849819b1dcd49cd4be6d0de147caca",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net7.0 (thin)",
+                          "sha256":  "5ca51f70c39ea1478eee8936c4189a6a814bcbe1eac7403143e02f9756bde4a1",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net8.0 (fat)",
+                          "sha256":  "360a6b2884bfd63b2484768f2750a0899326ab4dc6d5b71558c32f3546c1c5c4",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net8.0 (thin)",
+                          "sha256":  "999626d8a665fe08efeda68a1a4b7195eb9c39ff86f1346bd4396492cc864a7e",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net9.0 (fat)",
+                          "sha256":  "98e92f1b47a831a36db6808b77d3e4dfd20606de222c3a50ebbf111bfd1583ba",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "net9.0 (thin)",
+                          "sha256":  "9a0b715e7639496be27966e3c8af2ae29c403ec85ee8c329a11e564df34c1ea7",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "netcoreapp3.0 (fat)",
+                          "sha256":  "573b0fe7c4f4c85a945307ac20331a1dd38d0d10891b45208895fccf197c6c3d",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "netcoreapp3.0 (thin)",
+                          "sha256":  "0aad297885de0b98371d1142635d82b1a9a35668e578767802932d6cd9a6315c",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "netcoreapp3.1 (fat)",
+                          "sha256":  "455cace58ed070ac2049d7ca76860ae8a6b7a9160b4b59cd9693a57a3edb8571",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.1.0",
+                          "build":  "netcoreapp3.1 (thin)",
+                          "sha256":  "92ec5323ac79739888330440de1ee2bdc29878aa504eb279cff181c6b6d766c5",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.1.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net10.0 (fat)",
+                          "sha256":  "fd77b88724f4104440df0cf979a851d35eec75ea3a7e86297d04abe47c71aff6",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net10.0 (thin)",
+                          "sha256":  "64b8b8f926efe5b926b832aaedb93e73de34af2e84d9f8f5d51c6fb70ab61149",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net35 (fat)",
+                          "sha256":  "0d2a64f1d92fb25e2a8252dfe3d29faabbedbcd6872624cdaeef43b8a39dd443",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net35 (thin)",
+                          "sha256":  "adac6340f6c1fc32c535c05077a2d724b389c1c02c5e792bafca39faf08ff7b8",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net452 (fat)",
+                          "sha256":  "6df921459e3044ab8e49bef788150c011c7b2f4fdfe72258ee5863892a98a81a",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net452 (thin)",
+                          "sha256":  "227cbddb0586bddcf1ecef8c33a94aa818e25682874b2d48917cc1779fb3c17f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net472 (fat)",
+                          "sha256":  "7b9e756306fa3d7620e02a857c8927a6ab04973f9bd8a77d3866700a6deac55c",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net472 (thin)",
+                          "sha256":  "2edda13a18954b79795bac0d7e0e8fdf0bfa05b96552d6056d90f446cd0a2ab2",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net48 (fat)",
+                          "sha256":  "77e6901ecc606aec66c2a972782a3779e4f50c037d2d165eb7ececdd4d8f794d",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net48 (thin)",
+                          "sha256":  "657d779dd07781cc04d95eefdfecc6b209ac2b9b21f66b7a6b395732cc28c129",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net5.0 (fat)",
+                          "sha256":  "dc706695d7242858d0a095417081b6ffc0e74c5e1c21923c28533a1234d3179f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net5.0 (thin)",
+                          "sha256":  "1a46db5d503154fa7dcb691d44ca03643efd20183eeeacae7ad245530862b8a4",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net6.0 (fat)",
+                          "sha256":  "12eed32de73312b376f616ee8659ba5d3766d96859181728437fa85c6b5ce309",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net6.0 (thin)",
+                          "sha256":  "94c200a009819bee8b7353f73b3178b9c96271245cc7f461bcf2545cf73881f4",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net7.0 (fat)",
+                          "sha256":  "af3c0194c008ef82f4269d8dc6e5d07603e9c7b20f7ae0af54c2869dd4e4b0b9",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net7.0 (thin)",
+                          "sha256":  "a55058f91d3458c5660fc706c4f4d8c798559312cb9cda56c7f8636f1059724b",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net8.0 (fat)",
+                          "sha256":  "2b0496067bda368ff35c383d80421401c57a3acc091dcb3e5a8f15636104987f",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net8.0 (thin)",
+                          "sha256":  "51b15a92da60b716806c7751f239c58f423b78da24d442f3262c3b2508ebbc85",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net9.0 (fat)",
+                          "sha256":  "a849b726e1f9248d71aabbed8114deaf79beb7acc25e8344ff92a27ad8ac87ab",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "net9.0 (thin)",
+                          "sha256":  "a82c1f54b98368248de307592b398600571b7af60f02bf0c240ccacfda886e84",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "netcoreapp3.0 (fat)",
+                          "sha256":  "b91609f2cd47ef343da7fe22160052509dc8f4d777e5691be78775555b66cbfd",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "netcoreapp3.0 (thin)",
+                          "sha256":  "26ed703ba81cbf349607fac11ae6dbb557fe73cbbdbf1b24a98808a6c2f186a9",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "netcoreapp3.1 (fat)",
+                          "sha256":  "8a122db77908d1611cfdb5cc8406a00aac17c8dc94af1611a83d4ae86105bb36",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.2.0",
+                          "build":  "netcoreapp3.1 (thin)",
+                          "sha256":  "eaa8d8dfb17153ca32c52312e4f32d4edeabab04a6f4973c91ba3eb2af544ddb",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.2.0"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net10.0 (fat)",
+                          "sha256":  "f7d167b2500808c6c2ad6e38b6efa2741a2b809f79b0e92c36e4a7079c38d9bb",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net10.0 (thin)",
+                          "sha256":  "6a006c8ff125b44fe02ba1a57a7e4225ca5115e3e7a893275a795932c178f8dd",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net35 (fat)",
+                          "sha256":  "c228ff02a360a48c03a9154f49282dccdb5809599d5e606cf3840cb4887a5503",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net35 (thin)",
+                          "sha256":  "59337483db982e3e8b27ec03fe6f255fefdba9f6a5ae59173d36fd9684f11133",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net452 (fat)",
+                          "sha256":  "1bddf53fc5e5d3dcc16fb6588986f0af46b4f2cae5e2a6d25bbf100fe5ac5173",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net452 (thin)",
+                          "sha256":  "495f058e4a4a476ca687f64d6ca7adc3c09173a592e2b360880c9454f3267d9e",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net472 (fat)",
+                          "sha256":  "8ac54fdf0fab257148d68bc744d67609b74554ee72a4f3452e32030eaad009c6",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net472 (thin)",
+                          "sha256":  "c2a8340bb738ee91125763c208d84995ee291dc22465b90a70e20d83ded71e15",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net48 (fat)",
+                          "sha256":  "ddc070b57f695ece6f92c43cf82cf4d863c69685de96a99ebd9d2fa1d8fa7a19",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net48 (thin)",
+                          "sha256":  "ff72b521254c0100a0b7decf0923bd1481b53e3ab62a99dbc85a2f7ca9a47618",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net5.0 (fat)",
+                          "sha256":  "6d3d54c446b9fd39163d38036ea048ced0af39492b21ce4d765e99c19b4bb4e3",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net5.0 (thin)",
+                          "sha256":  "c956af19446c4da9d81f4d4e1287e1d77f853413989826224b678b25298e57a0",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net6.0 (fat)",
+                          "sha256":  "e3a2b6e5338c96c48c44e95dac40b856ce1f49d8152fe4f7a05dff8cdad60f51",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net6.0 (thin)",
+                          "sha256":  "a22cdf2a4d73af0d0ab0ea25fd53423ff5de7a4b28c35a7a82f331308d70ea69",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net7.0 (fat)",
+                          "sha256":  "f00c5010018874a2b291da874675a741b27b4e99c7fe7829ea5084bf773c913e",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net7.0 (thin)",
+                          "sha256":  "0df576e56f995089c348d1197941146289abc58d19b09a305509379badf933b1",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net8.0 (fat)",
+                          "sha256":  "119aec2f1f36c6c8c0aebd734370c39fb80f2f02bd234615bad86fde3f4933a2",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net8.0 (thin)",
+                          "sha256":  "0cceb2b10bae2dd0d57e490ec75934d4db6d4d69c556f264ef44bfe71810c2c8",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net9.0 (fat)",
+                          "sha256":  "da13884801bebd9f640430ba2c21b3eebd5c75bea41a97d1c6bbdc546d99becb",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "net9.0 (thin)",
+                          "sha256":  "6ad164d3bffc51806f5e683daf782893d0c076488f0a3d7ef1dc12ae7adfdb84",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "netcoreapp3.0 (fat)",
+                          "sha256":  "8ad08522e367337525f3779e97c8077db3ba65cf52585bfbe181a1899f0647bd",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "netcoreapp3.0 (thin)",
+                          "sha256":  "7c365b0c2b1d37143ce2754116fe93a4cf7299aebc6db9dd0f2eccc7ed96dec2",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "netcoreapp3.1 (fat)",
+                          "sha256":  "413b8e71e77ac85c5e17e4e817bed3ca5aa25e8f631b65713a3a8d0cc8edd270",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      },
+                      {
+                          "name":  "Harmony",
+                          "fileName":  "0Harmony.dll",
+                          "version":  "2.4.3",
+                          "build":  "netcoreapp3.1 (thin)",
+                          "sha256":  "e39e4675e1242a55a90ce9aa067a7aae5e9062b33e3f2e93605b4f45ba38b7dc",
+                          "source":  "https://github.com/pardeike/Harmony/releases/tag/v2.4.3"
+                      }
+                  ]
+}

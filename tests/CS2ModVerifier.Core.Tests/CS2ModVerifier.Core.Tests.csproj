@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\CS2ModVerifier.Core\CS2ModVerifier.Core.csproj" />
+    <ProjectReference Include="..\CS2ModVerifier.TestFixtures\CS2ModVerifier.TestFixtures.csproj" />
+    <ProjectReference Include="..\..\src\CS2ModVerifier.SourceCompare\CS2ModVerifier.SourceCompare.csproj" />
+  </ItemGroup>
+
+</Project>
