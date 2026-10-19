@@ -51,7 +51,10 @@ static int Verify(string[] args, int index)
     KnownLibraries.UseLocalFile(KnownLibraries.DefaultLocalPath());
     var pages = PdxModsCache.Load(PdxModsCache.DefaultPath(root));
     var store = useStore ? VerificationStore.Open(VerificationStore.DefaultPath()) : null;
-    var mods = modPath is not null ? [ModFolderFromPath(modPath)] : ModLocator.FindMods(root);
+    // Asset mods are skipped (performance); a mod named with --mod is always checked.
+    var installed = ModLocator.FindMods(root);
+    var mods = modPath is not null ? [ModFolderFromPath(modPath)] : CodeMods.Only(installed, pages);
+    var skipped = modPath is null ? installed.Count - mods.Count : 0;
 
     var results = new List<ModCheckResult>();
     foreach (var mod in mods)
@@ -97,8 +100,7 @@ static int Verify(string[] args, int index)
         Console.WriteLine();
     }
 
-    var assetMods = results.Count(r => !r.Scan.HasCode);
-    Console.WriteLine($"Checked {results.Count - assetMods} code mod(s); {assetMods} asset mod(s) have no code.");
+    Console.WriteLine($"Checked {results.Count(r => r.Scan.HasCode)} code mod(s); skipped {skipped} asset mod(s).");
     Console.WriteLine();
     PrintDisclaimer();
     return 0;
@@ -287,7 +289,9 @@ static int Scan(string[] args, int index)
     }
     else
     {
-        mods.AddRange(ModLocator.FindMods(root ?? ModLocator.DefaultGameDataRoot()));
+        // Asset mods are skipped (performance); a mod named with --mod is always checked.
+        var gameRoot = root ?? ModLocator.DefaultGameDataRoot();
+        mods.AddRange(CodeMods.Only(ModLocator.FindMods(gameRoot), PdxModsCache.Load(PdxModsCache.DefaultPath(gameRoot))));
     }
 
     var reports = new List<ModReport>();

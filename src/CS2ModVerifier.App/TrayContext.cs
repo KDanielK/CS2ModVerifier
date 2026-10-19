@@ -18,9 +18,13 @@ internal sealed class TrayContext : ApplicationContext
     private readonly SynchronizationContext ui;
     private readonly IgnoreStore ignores = IgnoreStore.Load();
     private readonly System.Windows.Forms.Timer retryTimer = new();
+    private readonly System.Windows.Forms.Timer updateTimer = new() { Interval = (int)TimeSpan.FromMinutes(1).TotalMilliseconds };
+    private readonly ToolStripMenuItem updateItem = new() { Visible = false, Font = new Font(SystemFonts.MenuFont ?? Control.DefaultFont, FontStyle.Bold) };
     private MainForm? window;
     private bool initialCheckDone;
     private DateTimeOffset? retryAt;
+    private string? updateUrl;
+    private bool balloonIsUpdate;
 
     public TrayContext(bool openWindow)
     {
@@ -29,6 +33,8 @@ internal sealed class TrayContext : ApplicationContext
         checks = new CheckService(ModLocator.DefaultGameDataRoot());
 
         var menu = new ContextMenuStrip();
+        updateItem.Click += (_, _) => OpenUpdatePage();
+        menu.Items.Add(updateItem);
         menu.Items.Add("Open", null, (_, _) => ShowWindow());
         menu.Items.Add("Check all mods now", null, (_, _) => _ = checks.CheckAllAsync());
         menu.Items.Add("About and disclaimer", null, (_, _) => ShowAbout());
@@ -51,7 +57,17 @@ internal sealed class TrayContext : ApplicationContext
             Visible = true,
         };
         tray.DoubleClick += (_, _) => ShowWindow();
-        tray.BalloonTipClicked += (_, _) => ShowWindow();
+        tray.BalloonTipClicked += (_, _) =>
+        {
+            if (balloonIsUpdate)
+            {
+                OpenUpdatePage();
+            }
+            else
+            {
+                ShowWindow();
+            }
+        };
 
         checks.Checked += (previous, result) => Post(() => OnChecked(previous, result));
         checks.Removed += path =>
@@ -91,6 +107,14 @@ internal sealed class TrayContext : ApplicationContext
             _ = checks.CheckAllAsync();
         };
 
+        // A newer release of this tool: first check a minute after start, then once a day.
+        updateTimer.Tick += (_, _) =>
+        {
+            updateTimer.Interval = (int)TimeSpan.FromDays(1).TotalMilliseconds;
+            _ = CheckForUpdateAsync();
+        };
+        updateTimer.Start();
+
         Autostart.KeepPathCurrent();
         _ = InitialCheckAsync();
         if (openWindow)
@@ -103,6 +127,7 @@ internal sealed class TrayContext : ApplicationContext
     {
         rescanTimer.Dispose();
         retryTimer.Dispose();
+        updateTimer.Dispose();
         watcher.Dispose();
         tray.Visible = false;
         tray.Dispose();
@@ -167,8 +192,54 @@ internal sealed class TrayContext : ApplicationContext
         Log.Write($"Waiting for GitHub's hourly limit; continuing at {at.ToLocalTime():HH:mm:ss}.");
     }
 
-    private void Notify(ToolTipIcon icon, string text) =>
+    /// <summary>Asks GitHub for this tool's latest release; on a newer one, shows the menu item and notifies once per version.</summary>
+    private async Task CheckForUpdateAsync()
+    {
+        var current = typeof(TrayContext).Assembly.GetName().Version ?? new Version(0, 0, 0);
+        UpdateCheck.NewRelease? newer;
+        try
+        {
+            newer = await UpdateCheck.FindNewerAsync(current);
+        }
+        catch (Exception e) when (e is HttpRequestException or TaskCanceledException or InvalidDataException
+            or InvalidOperationException or System.Text.Json.JsonException or KeyNotFoundException)
+        {
+            Log.Write($"Update check skipped: {e.Message}");
+            return;
+        }
+
+        if (newer is null)
+        {
+            return;
+        }
+
+        updateUrl = newer.Url;
+        updateItem.Text = $"Update available: {newer.Tag} (open download page)";
+        updateItem.Visible = true;
+
+        var settings = AppSettings.Load();
+        if (settings.NotifiedUpdate != newer.Tag)
+        {
+            Log.Write($"Newer release available: {newer.Tag} (running {current.ToString(3)}).");
+            Notify(ToolTipIcon.Info, $"CS2 Mod Verifier {newer.Tag} is available (you have {current.ToString(3)}). Click to open the download page.", isUpdate: true);
+            (settings with { NotifiedUpdate = newer.Tag }).Save();
+        }
+    }
+
+    /// <summary>Opens the release page in the browser. Nothing is downloaded or installed by the app.</summary>
+    private void OpenUpdatePage()
+    {
+        if (updateUrl is { } url && UpdateCheck.IsReleasePage(url))
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(url) { UseShellExecute = true });
+        }
+    }
+
+    private void Notify(ToolTipIcon icon, string text, bool isUpdate = false)
+    {
+        balloonIsUpdate = isUpdate;
         tray.ShowBalloonTip(10_000, "CS2 Mod Verifier", text, icon);
+    }
 
     private void ShowWindow()
     {

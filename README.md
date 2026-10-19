@@ -11,6 +11,8 @@ Why: code mods run inside the game with your full Windows user rights, and nothi
 3. **Unexpected files.** Identifies each file by its content, not its name. Reports programs, scripts, native libraries other than the standard ones that every code mod ships, and files disguised with a different extension. Also lists extra .NET libraries bundled with a mod, and recognises official builds of Harmony by comparing their SHA-256 hash with Harmony's GitHub releases. The tool ships with a list of known builds and looks up newer versions in Harmony's releases when a mod uses one. A file named like Harmony that matches no official build is reported.
 4. **Code references.** Reads each mod DLL as data, without loading or running it, and lists the system features its code refers to: internet access, starting programs, loading other code at runtime, native Windows functions, the Windows registry, files and folders, user folders such as AppData, and suspicious text such as web addresses.
 
+Only code mods are checked: mods tagged "Code Mod" on their Paradox Mods page, or with a `.dll` file in their main folder. Asset mods (buildings, maps, props) are skipped entirely, for performance: they can be several gigabytes, and these checks are about code.
+
 The app lists each code mod with a badge for its most serious open finding. Expand a mod to see its findings, hover over anything for an explanation, and ignore findings you have looked into. It watches your mod folders and checks new and updated mods automatically, with a Windows notification.
 
 ## Disclaimer
@@ -22,6 +24,7 @@ CS2 Mod Verifier is an aid, not a guarantee of safety.
 - **Matching the source does not prove the source is harmless.** The source comparison checks that the DLL's types, method signatures and risky calls appear in the source. A call found in the source can be read there, but that does not mean anyone has reviewed it. The rest of the code inside each method is not compared.
 - **Matching the Paradox file list does not prove the upload is genuine.** It shows the files are the ones Paradox delivered. If an author's account is compromised, Paradox delivers the attacker's files.
 - **Native code is not inspected.** Native libraries are only identified by name and hash.
+- **Asset mods are not checked.** Code hidden in a mod that is not tagged as a code mod and has no `.dll` in its main folder is not found.
 - Only install mods from sources you trust. You are responsible for what you install.
 
 This software is provided "as is", without warranty of any kind, as stated in the [MIT License](LICENSE). The authors are not liable for any damage or loss arising from its use.
@@ -37,11 +40,13 @@ Requires Windows 10 or 11 (64-bit). Nothing else needs to be installed.
 3. Read and accept the explanation on first start. The app opens its window and checks your mods; afterwards it runs in the tray (the shield icon).
 4. Optional: right-click the tray icon and turn on **Start with Windows**. It is off by default. It adds an entry for your Windows user only (no admin rights needed).
 
-The exe is not code-signed, so Windows SmartScreen may warn that it is from an unknown publisher. Check the download first, then choose "More info" and "Run anyway".
+**Windows SmartScreen will most likely warn you.** The exe is not code-signed, so the first time you run it Windows shows a blue "Windows protected your PC" window about an unknown publisher. Check the download first (see below), then choose **More info** and **Run anyway**. Windows only asks once.
 
 **What it stores:** settings, ignored findings, cached results and a log in `%LOCALAPPDATA%\CS2ModVerifier`. To remove the app, turn off "Start with Windows" if you turned it on, exit the app from the tray menu, and delete the exe and that folder.
 
 **Network use:** it only contacts GitHub: `api.github.com` to read the public repositories linked from mod pages and the official Harmony releases, and GitHub's own download hosts that the API redirects to. It sends no information about you, your PC or your mods; GitHub sees an ordinary web request (including your IP address), as with any website. Repositories are never searched for: only the link on a mod's Paradox Mods page is used. GitHub allows 60 requests per hour without an account; a mod usually needs one or none, and results are remembered. If the limit is reached, the remaining mods show "Waiting for GitHub" and are compared automatically once it resets.
+
+**Updates:** once a day, the app asks GitHub for the latest release of this repository. When there is a newer version, it shows a notification and a tray menu item that opens the release page in your browser. It never downloads or installs anything by itself: an automatic updater would be a way to deliver malicious code, so updating stays in your hands.
 
 Want to help test? See [TESTING.md](TESTING.md).
 
