@@ -90,6 +90,14 @@ public static partial class GitHubSource
                 a.GetProperty("id").GetInt64(), a.GetProperty("name").GetString()!, a.GetProperty("size").GetInt64()))]))];
     }
 
+    /// <summary>The newest published release (not a draft or pre-release): its tag and its page on GitHub.</summary>
+    public static async Task<(string Tag, string Url)> LatestReleaseAsync(string owner, string repo, CancellationToken cancellationToken = default)
+    {
+        var bytes = await GetBytesAsync(RepoUri(owner, repo, "releases/latest"), MaxJsonBytes, $"{owner}/{repo} latest release", cancellationToken);
+        using var document = JsonDocument.Parse(bytes);
+        return (document.RootElement.GetProperty("tag_name").GetString()!, document.RootElement.GetProperty("html_url").GetString()!);
+    }
+
     /// <summary>Downloads one file attached to a release, through the API (which redirects to GitHub's download host).</summary>
     public static Task<byte[]> DownloadReleaseAssetAsync(string owner, string repo, long assetId, CancellationToken cancellationToken = default) =>
         GetBytesAsync(RepoUri(owner, repo, $"releases/assets/{assetId}"), MaxZipBytes, $"{owner}/{repo} release file {assetId}", cancellationToken,

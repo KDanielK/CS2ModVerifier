@@ -3,7 +3,8 @@ using System.Text.Json;
 namespace CS2ModVerifier.App;
 
 /// <summary>Per-user settings in %LOCALAPPDATA%\CS2ModVerifier\settings.json.</summary>
-internal sealed record AppSettings(bool DisclaimerAccepted = false)
+/// <param name="NotifiedUpdate">The newer release the user was last notified about, so each one is announced once.</param>
+internal sealed record AppSettings(bool DisclaimerAccepted = false, string? NotifiedUpdate = null)
 {
     private static readonly JsonSerializerOptions Options = new() { WriteIndented = true };
 

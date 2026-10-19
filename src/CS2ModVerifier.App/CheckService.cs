@@ -51,9 +51,9 @@ internal sealed class CheckService(string gameDataRoot)
 
     public Task CheckAllAsync()
     {
-        // Queue right away, so the window can list every code mod before it is checked.
+        // Asset mods are skipped entirely (performance). Queue right away, so the window can list every code mod before it is checked.
         var pages = LoadPages();
-        var mods = ModLocator.FindMods(GameDataRoot);
+        var mods = CodeMods.Only(ModLocator.FindMods(GameDataRoot), pages);
         Enqueue(mods, pages);
 
         return RunAsync(async () =>
@@ -75,7 +75,8 @@ internal sealed class CheckService(string gameDataRoot)
     public Task CheckFolderAsync(string modPath)
     {
         var pages = LoadPages();
-        var mod = ModLocator.FindMods(GameDataRoot).FirstOrDefault(m => string.Equals(m.Path, modPath, StringComparison.OrdinalIgnoreCase));
+        var mod = CodeMods.Only(ModLocator.FindMods(GameDataRoot), pages)
+            .FirstOrDefault(m => string.Equals(m.Path, modPath, StringComparison.OrdinalIgnoreCase));
         if (mod is not null)
         {
             Enqueue([mod], pages);
@@ -83,6 +84,7 @@ internal sealed class CheckService(string gameDataRoot)
 
         return RunAsync(async () =>
         {
+            // Gone, or an asset mod (skipped): drop it from the list.
             if (mod is null)
             {
                 Forget(modPath);
@@ -97,7 +99,7 @@ internal sealed class CheckService(string gameDataRoot)
     {
         lock (pending)
         {
-            foreach (var mod in mods.Where(m => LooksLikeCodeMod(m, pages)))
+            foreach (var mod in mods)
             {
                 pages.TryGetValue(PdxModsCache.Key(mod.Id, mod.Version ?? string.Empty), out var page);
                 pending.TryAdd(mod.Path, new PendingMod(mod, page?.DisplayName ?? Path.GetFileName(mod.Path),
@@ -106,24 +108,6 @@ internal sealed class CheckService(string gameDataRoot)
         }
 
         PendingChanged?.Invoke();
-    }
-
-    /// <summary>A quick guess before the real scan: the Paradox page says code mod, or there is a DLL at the top level.</summary>
-    private static bool LooksLikeCodeMod(ModFolder mod, IReadOnlyDictionary<string, PdxModInfo> pages)
-    {
-        if (pages.TryGetValue(PdxModsCache.Key(mod.Id, mod.Version ?? string.Empty), out var page) && page.IsCodeMod)
-        {
-            return true;
-        }
-
-        try
-        {
-            return Directory.EnumerateFiles(mod.Path, "*.dll").Any();
-        }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
-        {
-            return false;
-        }
     }
 
     private void SetPending(string modPath, bool? checking)

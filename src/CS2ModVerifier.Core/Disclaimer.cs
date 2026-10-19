@@ -29,6 +29,7 @@ public static class Disclaimer
         - Matching the source does not prove the source is harmless. The source comparison checks that the DLL's types, method signatures and risky calls appear in the source. A call found in the source can be read there, but that does not mean anyone has reviewed it. The rest of the code inside each method is not compared.
         - Matching the Paradox file list does not prove the upload is genuine. It shows the files are the ones Paradox delivered. If an author's account is compromised, Paradox delivers the attacker's files.
         - Native code is not inspected. Native libraries are only identified by name and hash.
+        - Asset mods are not checked. Only mods tagged "Code Mod" on Paradox Mods, or with a .dll in their main folder, are checked; code hidden in other mods is not found.
         - Only install mods from sources you trust. You are responsible for what you install.
 
         This software is provided "as is", without warranty of any kind, as stated in the MIT License. The authors are not liable for any damage or loss arising from its use.
