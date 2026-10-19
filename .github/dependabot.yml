@@ -1,0 +1,22 @@
+# Weekly update pull requests for NuGet packages and the GitHub Actions used in workflows.
+# Each update arrives as a pull request, so CI runs on it before anything is merged.
+version: 2
+updates:
+  - package-ecosystem: nuget
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      # Test-only packages change often; one pull request for all of them.
+      test-packages:
+        patterns:
+          - "xunit*"
+          - "Microsoft.NET.Test.Sdk"
+          - "coverlet*"
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
