@@ -111,6 +111,63 @@ public class SourceCompareTests
     }
 
     [Fact]
+    public void IdiomaticForeachCode_IsAccepted_WhenTheSourceUsesSystemApiQuery()
+    {
+        var source = new SourceModel();
+        source.AddFile("namespace Mod { public partial class Sys { void OnUpdate() { foreach (var item in SystemAPI.Query<RefRW<Foo>>()) { } } } }");
+
+        var result = SourceComparer.Compare(IdiomaticForeachDll(), source, "test");
+
+        Assert.Equal(Verdict.Matches, result.Verdict);
+        Assert.Equal(4, result.GeneratedSkipped.Count(s => s.Contains("unity-idiomatic-foreach", StringComparison.Ordinal)));
+    }
+
+    [Fact]
+    public void IdiomaticForeachCode_IsReported_WhenTheSourceHasNoSystemApiQuery()
+    {
+        var source = new SourceModel();
+        source.AddFile("namespace Mod { public partial class Sys { void OnUpdate() { } } }");
+
+        var result = SourceComparer.Compare(IdiomaticForeachDll(), source, "test");
+
+        Assert.Equal(Verdict.Differences, result.Verdict);
+        Assert.Contains(result.Findings, f => f.Severity == Severity.High && f.Message.Contains("IFE_123_0", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void IdiomaticForeachCode_WithAnExtraMethod_IsReported()
+    {
+        var source = new SourceModel();
+        source.AddFile("namespace Mod { public partial class Sys { void OnUpdate() { foreach (var item in SystemAPI.Query<RefRW<Foo>>()) { } } } }");
+        var dll = IdiomaticForeachDll(extraEnumeratorMethod: "Upload()");
+
+        var result = SourceComparer.Compare(dll, source, "test");
+
+        Assert.Equal(Verdict.Differences, result.Verdict);
+        Assert.Contains(result.Findings, f => f.Severity == Severity.High && f.Message.Contains("IFE_123_0+Enumerator", StringComparison.Ordinal));
+    }
+
+    private static DllModel IdiomaticForeachDll(string? extraEnumeratorMethod = null)
+    {
+        static DllMethod M(string type, string signature) =>
+            new($"{type}::{signature}", signature[..signature.IndexOf('(')], [], null);
+
+        const string Owner = "Mod.Sys";
+        const string Ife = Owner + "+IFE_123_0";
+        string[] enumerator = [".ctor(EntityQuery,TypeHandle,SystemState&)", "Dispose()", "MoveNext()", "get_Current()", "GetEnumerator()", "Reset()"];
+        return new DllModel("Mod.dll", "Mod", "1.0", null,
+        [
+            new DllType(Owner, false, false, false, null, [M(Owner, ".ctor()"), M(Owner, "OnUpdate()")]),
+            new DllType(Ife, false, false, false, null, [M(Ife, "Query(EntityQuery,TypeHandle,SystemState&)"), M(Ife, "CompleteDependencies(SystemState&)")]),
+            new DllType(Ife + "+Enumerator", false, false, false, null,
+                [.. enumerator.Concat(extraEnumeratorMethod is null ? [] : [extraEnumeratorMethod]).Select(s => M(Ife + "+Enumerator", s))]),
+            new DllType(Ife + "+ResolvedChunk", false, false, false, null, [M(Ife + "+ResolvedChunk", "Get(Int32)")]),
+            new DllType(Ife + "+TypeHandle", false, false, false, null,
+                [M(Ife + "+TypeHandle", ".ctor(SystemState&)"), M(Ife + "+TypeHandle", "Update(SystemState&)"), M(Ife + "+TypeHandle", "Resolve(ArchetypeChunk)")]),
+        ]);
+    }
+
+    [Fact]
     public void ToolchainTypeHandle_WithMethods_IsReported()
     {
         var dll = new DllModel("Mod.dll", "Mod", "1.0", null,
