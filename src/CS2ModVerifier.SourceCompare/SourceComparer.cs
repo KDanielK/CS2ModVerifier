@@ -72,6 +72,14 @@ public static class SourceComparer
             }
 
             var methods = type.Methods.Where(m => m.GeneratedRule is null).Select(m => m.Key[(m.Key.IndexOf("::", StringComparison.Ordinal) + 2)..]).ToList();
+            // Code a source generator wrote for a pattern the hand-written type uses (checked before the toolchain list,
+            // whose TypeHandle rule only allows method-less types).
+            if (!source.Types.ContainsKey(type.Key) && GeneratedCodeRules.MatchSourceGenerated(type.Key, methods, source) is { } generatedBy)
+            {
+                generated.Add($"{type.Key} ({generatedBy}, {methods.Count} methods, all on the known list)");
+                continue;
+            }
+
             var toolchain = source.Types.ContainsKey(type.Key) ? null : GeneratedCodeRules.KnownToolchainTypes.FirstOrDefault(t => t.MatchesKey(type.Key));
             if (toolchain is not null)
             {
