@@ -111,7 +111,11 @@ public sealed class SourceModel
     /// <summary>Preprocessor symbols found in the repository's project files, plus DEBUG.</summary>
     public IReadOnlyCollection<string> Symbols => symbols;
 
-    public static SourceModel FromDirectory(string directory)
+    /// <summary>The project file the comparison was limited to, or null when the whole repository was used.</summary>
+    public string? Project { get; private set; }
+
+    /// <param name="assemblyName">The DLL's assembly name: only the project that builds it is read. Null reads every C# file.</param>
+    public static SourceModel FromDirectory(string directory, string? assemblyName = null)
     {
         var files = new List<(string Path, Func<string?> Read)>();
         foreach (var file in EnumerateFiles(directory))
@@ -120,10 +124,11 @@ public sealed class SourceModel
             files.Add((relative, () => new FileInfo(file).Length > MaxFileBytes ? null : File.ReadAllText(file)));
         }
 
-        return Load(files);
+        return Load(files, assemblyName);
     }
 
-    public static SourceModel FromZip(byte[] zip)
+    /// <param name="assemblyName">The DLL's assembly name: only the project that builds it is read. Null reads every C# file.</param>
+    public static SourceModel FromZip(byte[] zip, string? assemblyName = null)
     {
         using var archive = new ZipArchive(new MemoryStream(zip, writable: false), ZipArchiveMode.Read);
         if (archive.Entries.Count > MaxZipEntries)
@@ -137,8 +142,12 @@ public sealed class SourceModel
             .Where(e => !e.FullName.EndsWith('/'))
             .Select(e => (StripTopFolder(e.FullName), (Func<string?>)(() => ReadCapped(e, MaxFileBytes))))
             .ToList();
-        return Load(files);
+        return Load(files, assemblyName);
     }
+
+    /// <summary>Source from individually downloaded files (repository-relative paths with '/').</summary>
+    public static SourceModel FromFiles(IReadOnlyList<(string Path, string Text)> files, string? assemblyName = null) =>
+        Load([.. files.Select(f => (f.Path, (Func<string?>)(() => f.Text)))], assemblyName);
 
     public void AddFile(string text, string path = "")
     {
@@ -155,22 +164,39 @@ public sealed class SourceModel
         }
     }
 
-    private static SourceModel Load(List<(string Path, Func<string?> Read)> files)
+    private static SourceModel Load(List<(string Path, Func<string?> Read)> files, string? assemblyName)
     {
         var model = new SourceModel();
         var relevant = files.Where(f => !IsInSkippedDirectory(f.Path)).ToList();
+        var projectFiles = relevant
+            .Where(f => ProjectExtensions.Contains(Path.GetExtension(f.Path)))
+            .Select(f => (f.Path, Text: f.Read()))
+            .Where(f => f.Text is not null)
+            .Select(f => (f.Path, Text: f.Text!))
+            .ToList();
 
-        // Project files first: their symbols decide which #if branches are read.
-        foreach (var (path, read) in relevant.Where(f => ProjectExtensions.Contains(Path.GetExtension(f.Path))))
+        // Only the project that builds the DLL: test projects or other mods in the repository can declare
+        // stand-in classes with the same names, which would otherwise be merged into the real ones.
+        var scope = assemblyName is null ? null : ProjectScope.Find(projectFiles, assemblyName);
+        model.Project = scope?.ProjectPath;
+        if (assemblyName is not null && scope is null)
         {
-            if (read() is { } text)
+            model.Warnings.Add($"No project file in the repository builds {assemblyName}, so all of its C# files were compared.");
+        }
+
+        // Project files first: their symbols decide which #if branches are read. With a known project, only its own
+        // file and shared .props/.targets count, and only its own references to outside code are reported.
+        foreach (var (path, text) in projectFiles)
+        {
+            var isOtherProject = scope is not null && path.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase) && path != scope.ProjectPath;
+            if (!isOtherProject)
             {
                 model.ReadProjectFile(path, text);
             }
         }
 
         long total = 0;
-        foreach (var (path, read) in relevant.Where(f => f.Path.EndsWith(".cs", StringComparison.OrdinalIgnoreCase)))
+        foreach (var (path, read) in relevant.Where(f => f.Path.EndsWith(".cs", StringComparison.OrdinalIgnoreCase) && (scope?.Includes(f.Path) ?? true)))
         {
             var text = read();
             if (text is null)

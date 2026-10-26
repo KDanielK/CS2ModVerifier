@@ -91,6 +91,11 @@ public static class CallTracer
 
         var separator = call.IndexOf("::", StringComparison.Ordinal);
         var member = call[(separator + 2)..];
+        if (member.IndexOf('(') is var parenthesis and > 0)
+        {
+            member = member[..parenthesis]; // "Load(Byte[])": the source writes "Load".
+        }
+
         if (member == ".ctor")
         {
             return TypeNames.StripArity(SimpleName(call[..separator]));

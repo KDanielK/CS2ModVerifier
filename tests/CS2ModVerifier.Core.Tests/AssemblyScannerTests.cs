@@ -72,7 +72,7 @@ public class AssemblyScannerTests
     public void SuspiciousStrings_AloneAreInfo()
     {
         var report = new AssemblyReport("Mod.dll", "Mod", "1.0", Guid.NewGuid(), [], [], [], [], [], [], false,
-            ["https://mods.paradoxplaza.com/authors/someone"]);
+            ["https://example.invalid/some-page"]);
 
         var finding = Assert.Single(RiskRules.Evaluate(report));
 
@@ -104,6 +104,48 @@ public class AssemblyScannerTests
         var started = Assert.Single(RiskRules.Evaluate(starting), f => f.Category.StartsWith("Process", StringComparison.Ordinal));
         Assert.Equal(("Process", Severity.Medium), (started.Category, started.Severity));
     }
+
+    [Fact]
+    public void AssemblyLoad_ByName_IsMedium_FromBytes_IsHigh()
+    {
+        var byName = Report(members: ["System.Reflection.Assembly::Load", "System.Reflection.Assembly::Load(String)"]);
+        var fromBytes = Report(members: ["System.Reflection.Assembly::Load", "System.Reflection.Assembly::Load(Byte[])"]);
+        var unknown = Report(members: ["System.Reflection.Assembly::Load"]);
+
+        Assert.Equal(("AssemblyByName", Severity.Medium), Single(RiskRules.Evaluate(byName)));
+        Assert.Equal(("DynamicCode", Severity.High), Single(RiskRules.Evaluate(fromBytes)));
+        Assert.Equal(("DynamicCode", Severity.High), Single(RiskRules.Evaluate(unknown)));
+
+        static (string, Severity) Single(IReadOnlyList<Finding> findings) => (Assert.Single(findings).Category, findings[0].Severity);
+    }
+
+    [Fact]
+    public void Scanner_RecordsTheAssemblyLoadOverload()
+    {
+        // The fixture calls Assembly.LoadFrom, not Load; check that only Load is recorded with parameters.
+        var report = AssemblyScanner.Scan(TestData.FixtureDll(), "CS2ModVerifier.TestFixtures.dll");
+
+        Assert.DoesNotContain(report.MemberReferences, m => m.StartsWith("System.Reflection.Assembly::LoadFrom(", StringComparison.Ordinal));
+    }
+
+    [Theory]
+    [InlineData("https://github.com/owner/mod/issues/new", false)]
+    [InlineData("https://github.com/owner/mod", false)]
+    [InlineData("https://mods.paradoxplaza.com/mods/123/Windows", false)]
+    [InlineData("https://github.com/owner/mod-other/releases", true)]
+    [InlineData("https://example.invalid/upload", true)]
+    [InlineData("https://github.com/owner/mod/raw/payload.exe", true)]
+    public void LinksToTheModsOwnRepository_AreNotSuspicious(string text, bool suspicious)
+    {
+        var report = Report(strings: [text]);
+
+        var findings = RiskRules.Evaluate(report, [.. RiskRules.DefaultTrustedLinks, "https://github.com/owner/mod"]);
+
+        Assert.Equal(suspicious, findings.Any(f => f.Category == "SuspiciousStrings"));
+    }
+
+    private static AssemblyReport Report(string[]? members = null, string[]? strings = null) =>
+        new("Mod.dll", "Mod", "1.0", Guid.NewGuid(), [], [], members ?? [], [], [], [], false, strings ?? []);
 
     [Fact]
     public void FileAccessWithoutNetwork_IsNotFlaggedAsCombination()

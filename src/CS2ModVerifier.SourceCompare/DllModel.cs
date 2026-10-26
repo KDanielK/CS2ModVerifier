@@ -229,7 +229,13 @@ public sealed partial record DllModel(string FileName, string? AssemblyName, str
         {
             case HandleKind.MemberReference:
                 var reference = md.GetMemberReference((MemberReferenceHandle)handle);
-                return ParentName(md, reference.Parent) is { } parent ? parent + "::" + md.GetString(reference.Name) : null;
+                if (ParentName(md, reference.Parent) is not { } parent)
+                {
+                    return null;
+                }
+
+                var name = parent + "::" + md.GetString(reference.Name);
+                return OverloadSensitive.Contains(name) ? WithParameters(reference, name) : name;
             case HandleKind.MethodSpecification:
                 return CallTarget(md, MetadataTokens.GetToken(md.GetMethodSpecification((MethodSpecificationHandle)handle).Method));
             case HandleKind.MethodDefinition:
@@ -240,6 +246,22 @@ public sealed partial record DllModel(string FileName, string? AssemblyName, str
                     : $"native:{md.GetString(md.GetModuleReference(import.Module).Name)}!{md.GetString(definition.Name)}";
             default:
                 return null;
+        }
+    }
+
+    /// <summary>Calls whose risk depends on the overload: Assembly.Load(byte[]) loads code from memory, Load(string) finds one by name.</summary>
+    private static readonly HashSet<string> OverloadSensitive = new(StringComparer.Ordinal) { "System.Reflection.Assembly::Load" };
+
+    private static string WithParameters(MemberReference reference, string name)
+    {
+        try
+        {
+            var signature = reference.DecodeMethodSignature(SignatureTypeProvider.Instance, new GenericContext([], []));
+            return $"{name}({string.Join(",", signature.ParameterTypes)})";
+        }
+        catch (BadImageFormatException)
+        {
+            return name; // Unknown overload: classified as the risky one.
         }
     }
 

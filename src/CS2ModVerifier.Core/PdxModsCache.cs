@@ -123,9 +123,11 @@ public static partial class PdxModsCache
         return String(item, "latestVersion") == version ? Date(String(item, "latestUpdate")) : null;
     }
 
+    // Empty strings count as missing: the cache sometimes has an empty "userModVersion" for a new upload.
     private static string? String(JsonElement element, string name) =>
         element.ValueKind == JsonValueKind.Object && element.TryGetProperty(name, out var value) && value.ValueKind == JsonValueKind.String
-            ? value.GetString()
+            && value.GetString() is { Length: > 0 } text
+            ? text
             : null;
 
     private static DateTimeOffset? Date(string? text) =>

@@ -2,7 +2,8 @@ namespace CS2ModVerifier.Core;
 
 public static class ModScanner
 {
-    public static ModReport Scan(ModFolder mod)
+    /// <param name="trustedLinks">Link prefixes that are not suspicious for this mod (its own repository, Paradox Mods); see <see cref="RiskRules.Evaluate"/>.</param>
+    public static ModReport Scan(ModFolder mod, IReadOnlyList<string>? trustedLinks = null)
     {
         var inventory = FileInventory.Build(mod.Path);
         var manifest = ManifestVerifier.Verify(mod, inventory);
@@ -42,7 +43,7 @@ public static class ModScanner
 
             foreach (var assembly in assemblies)
             {
-                findings.AddRange(RiskRules.Evaluate(assembly));
+                findings.AddRange(RiskRules.Evaluate(assembly, trustedLinks));
             }
 
             findings = LibraryRules.Apply(inventory, assemblies, findings);

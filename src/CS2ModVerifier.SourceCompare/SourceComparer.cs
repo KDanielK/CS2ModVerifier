@@ -49,6 +49,11 @@ public static class SourceComparer
 
     public static ComparisonResult Compare(DllModel dll, SourceModel source, string sourceDescription)
     {
+        if (source.Project is { } project)
+        {
+            sourceDescription += $", project {project}";
+        }
+
         var findings = new List<Finding>();
         var generated = new List<string>();
         var implicitAccepted = new List<string>();
