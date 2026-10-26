@@ -58,7 +58,12 @@ public static class AssemblyScanner
             {
                 try
                 {
-                    memberReferences.Add(GetMemberReferenceName(md, handle));
+                    var memberName = GetMemberReferenceName(md, handle);
+                    memberReferences.Add(memberName);
+                    if (WithParameters(md, handle, memberName) is { } withParameters)
+                    {
+                        memberReferences.Add(withParameters);
+                    }
                 }
                 catch
                 {
@@ -202,6 +207,67 @@ public static class AssemblyScanner
         var memberName = md.GetString(reference.Name);
         var parentType = ResolveParentTypeName(md, reference.Parent);
         return parentType + "::" + memberName;
+    }
+
+    /// <summary>
+    /// Members whose risk depends on the overload, recorded a second time with their parameter types:
+    /// Assembly.Load(byte[]) loads code from memory, Assembly.Load(string) only looks up an assembly by name.
+    /// </summary>
+    private static readonly HashSet<string> OverloadSensitive = new(StringComparer.Ordinal) { "System.Reflection.Assembly::Load" };
+
+    /// <summary>"System.Reflection.Assembly::Load(Byte[])" for an overload-sensitive member reference, otherwise null.</summary>
+    internal static string? WithParameters(MetadataReader md, MemberReferenceHandle handle, string name)
+    {
+        if (!OverloadSensitive.Contains(name))
+        {
+            return null;
+        }
+
+        try
+        {
+            var signature = md.GetMemberReference(handle).DecodeMethodSignature(ParameterNames.Instance, null);
+            return $"{name}({string.Join(",", signature.ParameterTypes)})";
+        }
+        catch (BadImageFormatException)
+        {
+            return null;
+        }
+    }
+
+    /// <summary>Simple type names for parameters ("Byte[]", "String", "AssemblyName").</summary>
+    private sealed class ParameterNames : ISignatureTypeProvider<string, object?>
+    {
+        public static readonly ParameterNames Instance = new();
+
+        public string GetPrimitiveType(PrimitiveTypeCode typeCode) => typeCode.ToString();
+
+        public string GetTypeFromDefinition(MetadataReader reader, TypeDefinitionHandle handle, byte rawTypeKind) =>
+            reader.GetString(reader.GetTypeDefinition(handle).Name);
+
+        public string GetTypeFromReference(MetadataReader reader, TypeReferenceHandle handle, byte rawTypeKind) =>
+            reader.GetString(reader.GetTypeReference(handle).Name);
+
+        public string GetTypeFromSpecification(MetadataReader reader, object? genericContext, TypeSpecificationHandle handle, byte rawTypeKind) => "?";
+
+        public string GetSZArrayType(string elementType) => elementType + "[]";
+
+        public string GetArrayType(string elementType, ArrayShape shape) => elementType + "[" + new string(',', shape.Rank - 1) + "]";
+
+        public string GetByReferenceType(string elementType) => elementType + "&";
+
+        public string GetPointerType(string elementType) => elementType + "*";
+
+        public string GetPinnedType(string elementType) => elementType;
+
+        public string GetGenericInstantiation(string genericType, ImmutableArray<string> typeArguments) => genericType;
+
+        public string GetGenericTypeParameter(object? genericContext, int index) => "!" + index;
+
+        public string GetGenericMethodParameter(object? genericContext, int index) => "!!" + index;
+
+        public string GetFunctionPointerType(MethodSignature<string> signature) => "FnPtr";
+
+        public string GetModifiedType(string modifier, string unmodifiedType, bool isRequired) => unmodifiedType;
     }
 
     private static string ResolveParentTypeName(MetadataReader md, EntityHandle parent)

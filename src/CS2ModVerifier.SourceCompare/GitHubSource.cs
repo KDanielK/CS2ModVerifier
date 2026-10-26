@@ -14,6 +14,7 @@ public static partial class GitHubSource
 {
     public const long MaxZipBytes = 200L * 1024 * 1024;
     private const long MaxJsonBytes = 5L * 1024 * 1024;
+    private const long MaxTreeBytes = 50L * 1024 * 1024;
 
     // Requests always start at api.github.com (see RepoUri); the other hosts are only followed as GitHub's own redirects:
     // codeload for source zips, and GitHub's release download hosts for release files.
@@ -37,8 +38,9 @@ public static partial class GitHubSource
     [GeneratedRegex(@"^[0-9a-fA-F]{7,40}$")]
     private static partial Regex ShaPattern();
 
-    public static Task<byte[]> DownloadZipballAsync(string owner, string repo, string gitRef, CancellationToken cancellationToken = default) =>
-        GetBytesAsync(RepoUri(owner, repo, $"zipball/{Uri.EscapeDataString(gitRef)}"), MaxZipBytes, $"{owner}/{repo}@{gitRef}", cancellationToken);
+    /// <summary>The repository at a commit, tag or branch as a zip, in memory. Throws <see cref="GitHubZipTooLargeException"/> past <paramref name="maxBytes"/>.</summary>
+    public static Task<byte[]> DownloadZipballAsync(string owner, string repo, string gitRef, long maxBytes = MaxZipBytes, CancellationToken cancellationToken = default) =>
+        GetBytesAsync(RepoUri(owner, repo, $"zipball/{Uri.EscapeDataString(gitRef)}"), maxBytes, $"{owner}/{repo}@{gitRef}", cancellationToken);
 
     /// <summary>The full SHA of a commit in this repository, or null when the repository does not contain it.</summary>
     public static async Task<string?> FindCommitAsync(string owner, string repo, string sha, CancellationToken cancellationToken = default)
@@ -90,6 +92,33 @@ public static partial class GitHubSource
                 a.GetProperty("id").GetInt64(), a.GetProperty("name").GetString()!, a.GetProperty("size").GetInt64()))]))];
     }
 
+    /// <summary>Every file at a commit (path, blob SHA, size), and whether GitHub cut the list short.</summary>
+    public static async Task<(IReadOnlyList<(string Path, string Sha, long Size)> Files, bool Truncated)> ListFilesAsync(
+        string owner, string repo, string commit, CancellationToken cancellationToken = default)
+    {
+        var bytes = await GetBytesAsync(RepoUri(owner, repo, $"git/trees/{Uri.EscapeDataString(commit)}?recursive=1"), MaxTreeBytes,
+            $"{owner}/{repo}@{commit} file list", cancellationToken);
+        using var document = JsonDocument.Parse(bytes);
+        var files = document.RootElement.GetProperty("tree").EnumerateArray()
+            .Where(e => e.GetProperty("type").GetString() == "blob")
+            .Select(e => (e.GetProperty("path").GetString()!, e.GetProperty("sha").GetString()!,
+                e.TryGetProperty("size", out var size) ? size.GetInt64() : 0L))
+            .ToList();
+        return (files, document.RootElement.TryGetProperty("truncated", out var truncated) && truncated.GetBoolean());
+    }
+
+    /// <summary>One file's content by its blob SHA, as text.</summary>
+    public static async Task<string> DownloadBlobTextAsync(string owner, string repo, string blobSha, long maxBytes, CancellationToken cancellationToken = default)
+    {
+        // Base64 inside JSON: about 4/3 of the file size, plus a little overhead.
+        var bytes = await GetBytesAsync(RepoUri(owner, repo, $"git/blobs/{Uri.EscapeDataString(blobSha)}"), (maxBytes * 4 / 3) + 4096,
+            $"{owner}/{repo} file {blobSha}", cancellationToken);
+        using var document = JsonDocument.Parse(bytes);
+        var content = Convert.FromBase64String(document.RootElement.GetProperty("content").GetString()!.Replace("\n", string.Empty, StringComparison.Ordinal));
+        using var reader = new StreamReader(new MemoryStream(content), System.Text.Encoding.UTF8, detectEncodingFromByteOrderMarks: true);
+        return await reader.ReadToEndAsync(cancellationToken);
+    }
+
     /// <summary>The newest published release (not a draft or pre-release): its tag and its page on GitHub.</summary>
     public static async Task<(string Tag, string Url)> LatestReleaseAsync(string owner, string repo, CancellationToken cancellationToken = default)
     {
@@ -103,15 +132,12 @@ public static partial class GitHubSource
         GetBytesAsync(RepoUri(owner, repo, $"releases/assets/{assetId}"), MaxZipBytes, $"{owner}/{repo} release file {assetId}", cancellationToken,
             accept: "application/octet-stream");
 
-    private static Uri RepoUri(string owner, string repo, string path)
-    {
-        if (!NamePattern().IsMatch(owner) || !NamePattern().IsMatch(repo))
-        {
-            throw new ArgumentException("Owner and repository names may only contain letters, digits, '.', '_' and '-'.");
-        }
+    private static Uri RepoUri(string owner, string repo, string path) =>
+        new($"https://api.github.com/repos/{Checked(owner)}/{Checked(repo)}/{path}");
 
-        return new Uri($"https://api.github.com/repos/{owner}/{repo}/{path}");
-    }
+    private static string Checked(string name) => NamePattern().IsMatch(name)
+        ? name
+        : throw new ArgumentException("Owner and repository names may only contain letters, digits, '.', '_' and '-'.");
 
     private static async Task<byte[]> GetBytesAsync(Uri uri, long maxBytes, string what, CancellationToken cancellationToken,
         string accept = "application/vnd.github+json")
@@ -175,7 +201,7 @@ public static partial class GitHubSource
 
             if (response.Content.Headers.ContentLength > maxBytes)
             {
-                throw new InvalidDataException($"The download for {what} is larger than {maxBytes / (1024 * 1024)} MB.");
+                throw new GitHubZipTooLargeException($"The download for {what} is larger than {maxBytes / (1024 * 1024)} MB.");
             }
 
             await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
@@ -186,7 +212,7 @@ public static partial class GitHubSource
             {
                 if (buffer.Length + read > maxBytes)
                 {
-                    throw new InvalidDataException($"The download for {what} is larger than {maxBytes / (1024 * 1024)} MB.");
+                    throw new GitHubZipTooLargeException($"The download for {what} is larger than {maxBytes / (1024 * 1024)} MB.");
                 }
 
                 buffer.Write(chunk, 0, read);
@@ -203,6 +229,9 @@ public static partial class GitHubSource
 }
 
 public sealed class GitHubNotFoundException(string message) : HttpRequestException(message);
+
+/// <summary>A download passed its size limit; the download was stopped.</summary>
+public sealed class GitHubZipTooLargeException(string message) : HttpRequestException(message);
 
 /// <summary>GitHub's hourly limit is used up; comparisons can continue at <see cref="ResetAt"/>.</summary>
 public sealed class GitHubRateLimitException(DateTimeOffset resetAt)

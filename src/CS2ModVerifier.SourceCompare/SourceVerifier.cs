@@ -177,8 +177,8 @@ public static partial class SourceVerifier
                 return null;
             }
 
-            var zip = await GitHubSource.DownloadZipballAsync(repo.Owner, repo.Repo, sha, cancellationToken);
-            var result = SourceComparer.Compare(dll, SourceModel.FromZip(zip), $"github.com/{repoName} at {Short(sha)}");
+            var source = await SourceDownloader.LoadAsync(repo.Owner, repo.Repo, sha, dll.AssemblyName, cancellationToken);
+            var result = SourceComparer.Compare(dll, source, $"github.com/{repoName} at {Short(sha)}");
             if (result.Verdict == Verdict.Matches)
             {
                 if (claimedInRepo == true && !sha.StartsWith(claimed!, StringComparison.OrdinalIgnoreCase))

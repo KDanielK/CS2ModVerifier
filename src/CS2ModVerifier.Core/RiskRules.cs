@@ -40,8 +40,13 @@ public static class RiskRules
                 "System.Reflection.Emit.TypeBuilder", "System.Reflection.Emit.MethodBuilder",
                 "System.Reflection.Emit.DynamicMethod", "System.Reflection.Emit.ILGenerator",
             ],
-            [("System.Reflection.Assembly", ["Load", "LoadFrom", "LoadFile", "UnsafeLoadFrom"]), ("System.AppDomain", ["Load"])],
+            // Load(byte[]) loads code from memory, the classic way to hide a payload; LoadFrom/LoadFile load other files.
+            [("System.Reflection.Assembly", ["Load(Byte[])", "Load(Byte[],Byte[])", "LoadFrom", "LoadFile", "UnsafeLoadFrom"]), ("System.AppDomain", ["Load"])],
             null),
+        // Load("Name") only finds an assembly by name, usually another installed mod (for compatibility).
+        new(Severity.Medium, "AssemblyByName", [], [],
+            [("System.Reflection.Assembly", ["Load(String)", "Load(AssemblyName)"])],
+            "Looks up another assembly by name, usually an installed mod."),
         new(Severity.High, "NativeInterop",
             ["System.Runtime.InteropServices.NativeLibrary"],
             [],
@@ -89,6 +94,11 @@ public static class RiskRules
             return ("NativeInterop", Severity.High);
         }
 
+        if (call == "System.Reflection.Assembly::Load")
+        {
+            return ("DynamicCode", Severity.High); // Overload could not be read: assume code from memory.
+        }
+
         var separator = call.IndexOf("::", StringComparison.Ordinal);
         if (separator < 0)
         {
@@ -110,7 +120,14 @@ public static class RiskRules
         return null;
     }
 
-    public static IReadOnlyList<Finding> Evaluate(AssemblyReport report)
+    /// <summary>Links that are expected in a mod's text and not suspicious: Paradox Mods pages.</summary>
+    public static readonly IReadOnlyList<string> DefaultTrustedLinks = ["https://mods.paradoxplaza.com/"];
+
+    /// <param name="trustedLinks">
+    /// Link prefixes that are not suspicious for this mod, such as its own GitHub repository ("https://github.com/owner/repo")
+    /// and Paradox Mods; null uses <see cref="DefaultTrustedLinks"/>. A trusted link that also contains other suspicious text still counts.
+    /// </param>
+    public static IReadOnlyList<Finding> Evaluate(AssemblyReport report, IReadOnlyList<string>? trustedLinks = null)
     {
         var findings = new List<Finding>();
 
@@ -129,7 +146,16 @@ public static class RiskRules
         findings.RemoveAll(f => (f.Category == "NetworkTypes" && Has("Network")) || (f.Category == "ProcessInfo" && Has("Process")));
 
         // Suspicious text is supporting evidence: Medium only when the code can also look up or load code by name.
-        var suspicious = MatchSuspiciousStrings(report);
+        // Assembly.Load whose overload could not be read: assume the risky one (code from memory).
+        if (report.MemberReferences.Contains("System.Reflection.Assembly::Load")
+            && !report.MemberReferences.Any(m => m.StartsWith("System.Reflection.Assembly::Load(", StringComparison.Ordinal))
+            && !Has("DynamicCode"))
+        {
+            findings.Add(new Finding(Severity.High, "DynamicCode",
+                "References System.Reflection.Assembly::Load (which overload could not be read)", report.RelativePath));
+        }
+
+        var suspicious = MatchSuspiciousStrings(report, trustedLinks ?? DefaultTrustedLinks);
         if (suspicious is not null)
         {
             findings.Add(Has("Reflection") || Has("DynamicCode") ? suspicious with { Severity = Severity.Medium } : suspicious);
@@ -239,19 +265,24 @@ public static class RiskRules
         return new Finding(rule.Severity, rule.Category, message, report.RelativePath);
     }
 
-    private static Finding? MatchSuspiciousStrings(AssemblyReport report)
+    private static Finding? MatchSuspiciousStrings(AssemblyReport report, IReadOnlyList<string> trustedLinks)
     {
         var matches = new HashSet<string>(StringComparer.Ordinal);
         foreach (var value in report.UserStrings)
         {
-            foreach (var substring in SuspiciousSubstrings)
+            var hits = SuspiciousSubstrings.Where(s => value.Contains(s, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (hits.Count == 0)
             {
-                if (value.Contains(substring, StringComparison.OrdinalIgnoreCase))
-                {
-                    matches.Add(Truncate(value));
-                    break;
-                }
+                continue;
             }
+
+            // A link to the mod's own repository or to Paradox Mods is expected, unless it also contains other suspicious text.
+            if (hits.All(h => h is "http://" or "https://") && trustedLinks.Any(prefix => IsUnderLink(value, prefix)))
+            {
+                continue;
+            }
+
+            matches.Add(Truncate(value));
         }
 
         if (matches.Count == 0)
@@ -263,6 +294,15 @@ public static class RiskRules
         return new Finding(Severity.Info, "SuspiciousStrings",
             $"User strings: {string.Join(" | ", listed)}", report.RelativePath);
     }
+
+    /// <summary>"https://github.com/a/b" covers "https://github.com/a/b/issues", but not "https://github.com/a/bc".</summary>
+    private static bool IsUnderLink(string value, string prefix) =>
+        prefix.EndsWith('/')
+            ? value.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
+            : value.Equals(prefix, StringComparison.OrdinalIgnoreCase)
+                || value.StartsWith(prefix + "/", StringComparison.OrdinalIgnoreCase)
+                || value.StartsWith(prefix + "?", StringComparison.OrdinalIgnoreCase)
+                || value.StartsWith(prefix + "#", StringComparison.OrdinalIgnoreCase);
 
     private static string Truncate(string value)
     {

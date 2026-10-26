@@ -167,18 +167,17 @@ static int Compare(string[] args, int index)
         string description;
         if (repo is not null)
         {
-            var zip = GitHubSource.DownloadZipballAsync(repoParts![0], repoParts[1], gitRef!).GetAwaiter().GetResult();
-            source = SourceModel.FromZip(zip);
+            source = SourceDownloader.LoadAsync(repoParts![0], repoParts[1], gitRef!, dll.AssemblyName).GetAwaiter().GetResult();
             description = $"github.com/{repo} at {gitRef}";
         }
         else if (File.Exists(sourcePath) && sourcePath!.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
         {
-            source = SourceModel.FromZip(File.ReadAllBytes(sourcePath));
+            source = SourceModel.FromZip(File.ReadAllBytes(sourcePath), dll.AssemblyName);
             description = Path.GetFileName(sourcePath);
         }
         else
         {
-            source = SourceModel.FromDirectory(sourcePath!);
+            source = SourceModel.FromDirectory(sourcePath!, dll.AssemblyName);
             description = Path.GetFullPath(sourcePath!);
         }
 

@@ -32,8 +32,13 @@ public static class ModChecker
         bool compareSource,
         CancellationToken cancellationToken = default)
     {
-        var scan = ModScanner.Scan(mod);
         pages.TryGetValue(PdxModsCache.Key(mod.Id, mod.Version ?? string.Empty), out var page);
+
+        // Links to the mod's own linked repository and to Paradox Mods are expected text, not suspicious.
+        IReadOnlyList<string> trustedLinks = PdxModsCache.ParseGitHubRepository(page?.GitHubUrl) is { } own
+            ? [.. RiskRules.DefaultTrustedLinks, $"https://github.com/{own.Owner}/{own.Repo}"]
+            : RiskRules.DefaultTrustedLinks;
+        var scan = ModScanner.Scan(mod, trustedLinks);
 
         // A bundled library in a version the list does not have yet: learn it from the library's releases, then scan again.
         if (compareSource && scan.Findings.Any(f => f.Category == "UnlistedLibrary"))
@@ -59,7 +64,7 @@ public static class ModChecker
 
             if (learnedAny)
             {
-                scan = ModScanner.Scan(mod);
+                scan = ModScanner.Scan(mod, trustedLinks);
             }
         }
 
