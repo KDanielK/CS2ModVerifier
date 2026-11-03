@@ -23,11 +23,17 @@ internal sealed class TrayContext : ApplicationContext
     private readonly System.Windows.Forms.Timer retryTimer = new();
     private readonly System.Windows.Forms.Timer updateTimer = new() { Interval = (int)TimeSpan.FromMinutes(1).TotalMilliseconds };
     private readonly ToolStripMenuItem updateItem = new() { Visible = false, Font = new Font(SystemFonts.MenuFont ?? Control.DefaultFont, FontStyle.Bold) };
+    private readonly Inbox inbox = Inbox.Load();
+    private readonly ChangeTracker changes = ChangeTracker.Open(ChangeTracker.DefaultPath());
+    private readonly List<(string Text, string ModPath, bool Warning)> pendingChanges = [];
+    private readonly List<ToolStripItem> unreadMenuItems = [];
+    private readonly ContextMenuStrip menu = new();
     private MainForm? window;
-    private bool initialCheckDone;
+    private bool baselineRun;
+    private bool busy;
     private DateTimeOffset? retryAt;
     private string? updateUrl;
-    private bool balloonIsUpdate;
+    private Action? balloonClick;
 
     public TrayContext(bool openWindow)
     {
@@ -35,8 +41,11 @@ internal sealed class TrayContext : ApplicationContext
         KnownLibraries.UseLocalFile(KnownLibraries.DefaultLocalPath());
         checks = new CheckService(ModLocator.DefaultGameDataRoot());
 
-        var menu = new ContextMenuStrip();
+        // Nothing recorded yet: the first check sets the baseline and ends with one summary.
+        baselineRun = changes.IsEmpty;
+
         updateItem.Click += (_, _) => OpenUpdatePage();
+        menu.Opening += (_, _) => RebuildUnreadMenu();
         menu.Items.Add(updateItem);
         menu.Items.Add("Open", null, (_, _) => ShowWindow());
         menu.Items.Add("Check all mods now", null, (_, _) => _ = checks.CheckAllAsync());
@@ -60,29 +69,30 @@ internal sealed class TrayContext : ApplicationContext
             Visible = true,
         };
         tray.DoubleClick += (_, _) => ShowWindow();
-        tray.BalloonTipClicked += (_, _) =>
-        {
-            if (balloonIsUpdate)
-            {
-                OpenUpdatePage();
-            }
-            else
-            {
-                ShowWindow();
-            }
-        };
+        tray.BalloonTipClicked += (_, _) => (balloonClick ?? ShowWindow)();
+        inbox.Changed += UpdateTrayState;
+        UpdateTrayState();
 
-        checks.Checked += (previous, result) => Post(() => OnChecked(previous, result));
+        checks.Checked += (_, result) => Post(() => OnChecked(result));
         checks.Removed += path =>
         {
             Log.Write($"Removed (folder gone): {path}");
-            Post(() => window?.RemoveRow(path));
+            Post(() =>
+            {
+                inbox.MarkRead(path);
+                window?.RemoveRow(path);
+            });
         };
         checks.PendingChanged += () => Post(() => window?.RefreshPending());
         checks.BusyChanged += busy => Post(() =>
         {
-            tray.Text = busy ? "CS2 Mod Verifier: checking mods..." : "CS2 Mod Verifier";
+            this.busy = busy;
+            UpdateTrayState();
             window?.SetBusy(busy);
+            if (!busy)
+            {
+                FlushChanges();
+            }
         });
 
         watcher = new ModWatcher(checks.GameDataRoot);
@@ -142,7 +152,6 @@ internal sealed class TrayContext : ApplicationContext
     private async Task InitialCheckAsync()
     {
         await checks.CheckAllAsync();
-        initialCheckDone = true;
 
         var code = checks.Results.Where(r => r.Scan.HasCode).ToList();
         var matches = code.Count(r => r.SourceStatus == SourceStatus.Matches);
@@ -156,10 +165,17 @@ internal sealed class TrayContext : ApplicationContext
         }
 
         Log.Write("Initial check done. " + summary);
-        Notify(openHigh > 0 ? ToolTipIcon.Warning : ToolTipIcon.Info, summary + " " + Disclaimer.Short);
+
+        // Only on the very first run: later starts stay quiet unless something changed.
+        if (baselineRun)
+        {
+            baselineRun = false;
+            pendingChanges.Clear();
+            Notify(openHigh > 0 ? ToolTipIcon.Warning : ToolTipIcon.Info, summary + " " + Disclaimer.Short);
+        }
     }
 
-    private void OnChecked(ModCheckResult? previous, ModCheckResult result)
+    private void OnChecked(ModCheckResult result)
     {
         Log.Write($"Checked {result.Scan.Mod.Path}: source {result.SourceStatus?.ToString() ?? "-"}, files {result.Scan.Manifest.Status}, findings {result.Scan.Findings.Count}"
             + string.Concat(result.Sources.Where(s => s.Status == SourceStatus.Error).Select(s => $" | {s.Message}")));
@@ -170,13 +186,129 @@ internal sealed class TrayContext : ApplicationContext
             ScheduleRetry(reset);
         }
 
-        // The first full check ends with one summary instead of a notification per mod.
-        if (!initialCheckDone || Texts.Change(previous, result, ignores) is not { } message)
+        if (!result.Scan.HasCode)
         {
             return;
         }
 
-        Notify(ignores.Summarize(result).Highest == Core.Severity.High ? ToolTipIcon.Warning : ToolTipIcon.Info, message);
+        // Compare with what was recorded before; only a real change becomes a notification.
+        var mod = result.Scan.Mod;
+        var change = changes.Update(
+            $"{mod.Source}|{mod.Id}",
+            Path.GetFileName(mod.Path),
+            ChangeTracker.Fingerprint(result.Scan.Files),
+            IgnoreStore.ImportantFindings(result).Select(ChangeTracker.FindingKey),
+            comparisonIncomplete: result.Sources.Any(s => s.Status is SourceStatus.RateLimited or SourceStatus.Error));
+        if (!baselineRun && Texts.Change(change, result, ignores) is { } message)
+        {
+            pendingChanges.Add((message, mod.Path, ignores.Summarize(result).Highest == Core.Severity.High));
+        }
+    }
+
+    /// <summary>After a check: one notification for everything that changed in it, and the changes kept as unread in the tray.</summary>
+    private void FlushChanges()
+    {
+        changes.Save();
+        if (baselineRun || pendingChanges.Count == 0)
+        {
+            return;
+        }
+
+        foreach (var (text, modPath, _) in pendingChanges)
+        {
+            Log.Write($"Change: {text}");
+            inbox.Add(text, modPath);
+        }
+
+        var icon = pendingChanges.Any(c => c.Warning) ? ToolTipIcon.Warning : ToolTipIcon.Info;
+        if (pendingChanges.Count == 1)
+        {
+            var (text, modPath, _) = pendingChanges[0];
+            Notify(icon, text, () => OpenMod(modPath));
+        }
+        else
+        {
+            var names = string.Join(", ", checks.Results
+                .Where(r => pendingChanges.Any(c => string.Equals(c.ModPath, r.Scan.Mod.Path, StringComparison.OrdinalIgnoreCase)))
+                .Select(r => r.DisplayName)
+                .Take(5));
+            var more = pendingChanges.Count > 5 ? $" and {pendingChanges.Count - 5} more" : string.Empty;
+            Notify(icon, $"{pendingChanges.Count} mods changed: {names}{more}. Click to see them.", ShowWindow);
+        }
+
+        pendingChanges.Clear();
+    }
+
+    /// <summary>The dot on the icon and the tooltip show whether anything is unread.</summary>
+    private void UpdateTrayState()
+    {
+        var unread = inbox.Items.Count;
+        tray.Icon = unread > 0 ? TrayIcons.Unread : TrayIcons.Normal;
+        tray.Text = busy
+            ? "CS2 Mod Verifier: checking mods..."
+            : unread > 0 ? $"CS2 Mod Verifier: {unread} new" : "CS2 Mod Verifier";
+    }
+
+    /// <summary>Puts the unread notifications at the top of the tray menu.</summary>
+    private void RebuildUnreadMenu()
+    {
+        foreach (var item in unreadMenuItems)
+        {
+            menu.Items.Remove(item);
+            item.Dispose();
+        }
+
+        unreadMenuItems.Clear();
+        if (inbox.Items.Count == 0)
+        {
+            return;
+        }
+
+        const int MaxShown = 8;
+        var index = 0;
+        foreach (var entry in inbox.Items.Take(MaxShown))
+        {
+            var text = entry.Text.Length > 80 ? entry.Text[..80] + "..." : entry.Text;
+            var item = new ToolStripMenuItem(text.Replace("&", "&&", StringComparison.Ordinal)) { ToolTipText = entry.Text };
+            item.Font = new Font(item.Font, FontStyle.Bold);
+            item.Click += (_, _) => OpenInboxItem(entry);
+            menu.Items.Insert(index++, item);
+            unreadMenuItems.Add(item);
+        }
+
+        var more = inbox.Items.Count > MaxShown ? $" ({inbox.Items.Count})" : string.Empty;
+        var markAll = new ToolStripMenuItem("Mark all as read" + more);
+        markAll.Click += (_, _) => inbox.MarkAllRead();
+        menu.Items.Insert(index++, markAll);
+        unreadMenuItems.Add(markAll);
+
+        var separator = new ToolStripSeparator();
+        menu.Items.Insert(index, separator);
+        unreadMenuItems.Add(separator);
+    }
+
+    private void OpenInboxItem(InboxItem item)
+    {
+        inbox.MarkRead(item);
+        if (item.Url is { } url)
+        {
+            OpenReleasePage(url);
+        }
+        else if (item.ModPath is { } path)
+        {
+            OpenMod(path);
+        }
+        else
+        {
+            ShowWindow();
+        }
+    }
+
+    /// <summary>Opens the window with this mod selected (selecting it marks it as read).</summary>
+    private void OpenMod(string modPath)
+    {
+        ShowWindow();
+        window?.SelectMod(modPath);
     }
 
     /// <summary>Checks everything again 30 seconds after GitHub's limit resets (cached results make that cheap).</summary>
@@ -225,23 +357,34 @@ internal sealed class TrayContext : ApplicationContext
         if (settings.NotifiedUpdate != newer.Tag)
         {
             Log.Write($"Newer release available: {newer.Tag} (running {current.ToString(3)}).");
-            Notify(ToolTipIcon.Info, $"CS2 Mod Verifier {newer.Tag} is available (you have {current.ToString(3)}). Click to open the download page.", isUpdate: true);
+            var text = $"CS2 Mod Verifier {newer.Tag} is available (you have {current.ToString(3)}). Click to open the download page.";
+            inbox.Add(text, url: newer.Url);
+            Notify(ToolTipIcon.Info, text, OpenUpdatePage);
             (settings with { NotifiedUpdate = newer.Tag }).Save();
         }
     }
 
-    /// <summary>Opens the release page in the browser. Nothing is downloaded or installed by the app.</summary>
     private void OpenUpdatePage()
     {
-        if (updateUrl is { } url && UpdateCheck.IsReleasePage(url))
+        if (updateUrl is { } url)
         {
+            OpenReleasePage(url);
+        }
+    }
+
+    /// <summary>Opens a release page of this tool in the browser. Nothing is downloaded or installed by the app.</summary>
+    private void OpenReleasePage(string url)
+    {
+        if (UpdateCheck.IsReleasePage(url))
+        {
+            inbox.MarkAllUpdatesRead();
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(url) { UseShellExecute = true });
         }
     }
 
-    private void Notify(ToolTipIcon icon, string text, bool isUpdate = false)
+    private void Notify(ToolTipIcon icon, string text, Action? onClick = null)
     {
-        balloonIsUpdate = isUpdate;
+        balloonClick = onClick;
         tray.ShowBalloonTip(10_000, "CS2 Mod Verifier", text, icon);
     }
 
@@ -249,7 +392,7 @@ internal sealed class TrayContext : ApplicationContext
     {
         if (window is null || window.IsDisposed)
         {
-            window = new MainForm(checks, ignores);
+            window = new MainForm(checks, ignores, inbox);
             window.FormClosed += (_, _) => window = null;
         }
 

@@ -14,7 +14,8 @@ Thanks for trying CS2 Mod Verifier! This is an early version, and testing on man
 - **Your own mod list.** Do the results make sense? Hover over anything you do not understand: is the explanation clear?
 - **Expand a mod** (the arrow) and look at its findings. For a risky call marked IN SOURCE, right-click and choose "View the code on GitHub".
 - **Ignore a finding** you have looked into, and check that the mod's badge changes.
-- **Subscribe to or update a mod** while the app runs (in the game or on Paradox Mods). It should be checked within seconds, with a Windows notification. "Do not disturb" in Windows hides notifications.
+- **Subscribe to or update a mod** while the app runs (in the game or on Paradox Mods). It should be checked within seconds, with a Windows notification, a dot on the tray icon, an entry at the top of the tray menu and a NEW label in the list. "Do not disturb" in Windows hides notifications, but the dot and the menu entry stay until you have looked at the change.
+- **Nothing changed:** restarting the app, or the check every 30 minutes, should show no notification. The very first start shows one summary.
 - **Start with Windows:** turn it on in the tray menu, restart your PC, and check that the app starts in the tray.
 - **Updates:** when a newer version is released, the app shows a notification (about a minute after it starts, then once a day) and an "Update available" item in the tray menu.
 

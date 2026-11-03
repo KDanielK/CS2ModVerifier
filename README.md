@@ -17,7 +17,7 @@ Why: code mods run inside the game with your full Windows user rights, and nothi
 
 Only code mods are checked: mods tagged "Code Mod" on their Paradox Mods page, or with a `.dll` file in their main folder. Asset mods (buildings, maps, props) are skipped entirely, for performance: they can be several gigabytes, and these checks are about code.
 
-The app lists each code mod with a badge for its most serious open finding. Expand a mod to see its findings, hover over anything for an explanation, and ignore findings you have looked into. It watches your mod folders and checks new and updated mods automatically, with a Windows notification.
+The app lists each code mod with a badge for its most serious open finding. Expand a mod to see its findings, hover over anything for an explanation, and ignore findings you have looked into. It watches your mod folders and checks new and updated mods automatically. A Windows notification appears only when something changed: a mod was added or updated, or a check has a new finding. Until you have looked at a change, the tray icon shows a dot, the tray menu lists the change, and the mod has a NEW label in the list.
 
 ## Disclaimer
 
