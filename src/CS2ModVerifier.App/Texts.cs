@@ -28,47 +28,72 @@ internal static class Texts
     public static string Version(ModCheckResult result) =>
         result.Page?.UserModVersion ?? (result.Scan.Mod.Version is { } v ? $"v{v}" : string.Empty);
 
-    /// <summary>A notification line for a mod that is new or changed, or null when nothing worth telling changed.</summary>
-    public static string? Change(ModCheckResult? previous, ModCheckResult result, IgnoreStore ignores)
+    /// <summary>
+    /// The notification for a real change, or null when there is nothing new to tell: an unchanged result is not news,
+    /// however serious it is, and stays visible in the list.
+    /// </summary>
+    public static string? Change(ModChange change, ModCheckResult result, IgnoreStore ignores)
     {
-        if (!result.Scan.HasCode)
+        if (!result.Scan.HasCode || !change.IsAnything)
         {
             return null;
         }
 
         var name = $"{result.DisplayName} {Version(result)}".Trim();
         var open = IgnoreStore.ImportantFindings(result).Where(f => !ignores.IsIgnored(result.Scan.Mod, f)).ToList();
-        var problems = new List<string>();
-        if (open.Any(f => f.Category is "SourceMismatch" or "SignatureDiffers"))
+        if (!change.IsNew && !change.IsUpdated)
         {
-            problems.Add("contains code not found in its GitHub source");
+            var fresh = Describe(open.Where(f => change.NewFindingKeys.Contains(ChangeTracker.FindingKey(f))));
+            return fresh.Count > 0 ? $"{name}: {string.Join("; ", fresh)}." : null;
         }
 
-        if (open.Any(f => f.Category == "Manifest"))
+        // For a new or updated mod, everything it has now is news.
+        var verb = change.IsNew ? "was added" : "was updated";
+        var findings = Describe(open);
+        if (findings.Count > 0)
         {
-            problems.Add("files were changed after download");
+            return $"{name} {verb}: {string.Join("; ", findings)}.";
         }
 
-        var newHigh = NewHighCategories(previous, open);
-        if (newHigh.Count > 0)
+        return result.SourceStatus switch
         {
-            problems.Add("new high findings: " + string.Join(", ", newHigh));
+            SourceStatus.Matches => $"{name} {verb}: its code matches the GitHub source.",
+            SourceStatus.RateLimited => $"{name} {verb}. Its source comparison is waiting for GitHub.",
+            _ => $"{name} {verb}: {Source(result).ToLowerInvariant()}.",
+        };
+    }
+
+    /// <summary>Findings in a few words for a notification, most serious first.</summary>
+    private static List<string> Describe(IEnumerable<Finding> findings)
+    {
+        var list = findings.ToList();
+        var text = new List<string>();
+        if (list.Any(f => f.Category == "Manifest"))
+        {
+            text.Add("files were changed after download");
         }
 
-        if (problems.Count > 0)
+        if (list.Any(f => f.Category is "SourceMismatch" or "SignatureDiffers" or "CallNotInSource"))
         {
-            return $"{name}: {string.Join("; ", problems)}.";
+            text.Add("contains code not found in its GitHub source");
         }
 
-        // Unchanged results need no notification; a new or updated mod gets a short confirmation.
-        if (previous is not null && previous.Scan.Files.SequenceEqual(result.Scan.Files))
+        if (list.Any(f => f.Category == "NoSourceLinked"))
         {
-            return null;
+            text.Add("no source linked");
         }
 
-        return result.SourceStatus == SourceStatus.Matches
-            ? $"{name} was checked: its code matches the GitHub source."
-            : $"{name} was checked: {Source(result).ToLowerInvariant()}.";
+        string[] described = ["Manifest", "SourceMismatch", "SignatureDiffers", "CallNotInSource", "NoSourceLinked"];
+        foreach (var severity in (Severity[])[Severity.High, Severity.Medium])
+        {
+            var others = list.Where(f => f.Severity == severity && !described.Contains(f.Category)).Select(f => f.Category).Distinct().ToList();
+            if (others.Count > 0)
+            {
+                text.Add($"{severity.ToString().ToLowerInvariant()} findings: {string.Join(", ", others)}");
+            }
+        }
+
+        return text;
     }
 
     public static string Details(ModCheckResult result, IgnoreStore ignores)
@@ -159,15 +184,4 @@ internal static class Texts
         return text.ToString();
     }
 
-    /// <summary>Categories of open High findings that the previous check of this mod did not have.</summary>
-    private static List<string> NewHighCategories(ModCheckResult? previous, IReadOnlyList<Finding> open)
-    {
-        var before = previous is null
-            ? []
-            : IgnoreStore.ImportantFindings(previous).Where(f => f.Severity == Severity.High).Select(f => f.Category + "|" + f.File).ToHashSet();
-        return [.. open
-            .Where(f => f.Severity == Severity.High && !before.Contains(f.Category + "|" + f.File))
-            .Select(f => f.Category)
-            .Distinct()];
-    }
 }

@@ -14,6 +14,7 @@ internal sealed class MainForm : Form
 
     private readonly CheckService checks;
     private readonly IgnoreStore ignores;
+    private readonly Inbox inbox;
     private readonly Dictionary<string, ModCheckResult> mods = new(StringComparer.OrdinalIgnoreCase);
     private readonly HashSet<string> expanded = new(StringComparer.OrdinalIgnoreCase);
     private readonly ListView list;
@@ -30,6 +31,7 @@ internal sealed class MainForm : Form
     private string? hoverKey;
     private int spinnerFrame;
     private bool busy;
+    private bool restoringSelection;
 
     private sealed record ModRow(ModCheckResult Result);
 
@@ -38,10 +40,12 @@ internal sealed class MainForm : Form
     /// <summary>A code mod that has not been checked yet: shown greyed out until its result arrives.</summary>
     private sealed record PendingRow(PendingMod Mod);
 
-    public MainForm(CheckService checks, IgnoreStore ignores)
+    public MainForm(CheckService checks, IgnoreStore ignores, Inbox inbox)
     {
         this.checks = checks;
         this.ignores = ignores;
+        this.inbox = inbox;
+        inbox.Changed += OnInboxChanged;
         Text = "CS2 Mod Verifier";
         Icon = SystemIcons.Shield;
         StartPosition = FormStartPosition.CenterScreen;
@@ -208,10 +212,27 @@ internal sealed class MainForm : Form
     /// <summary>Mods were queued, or one started or finished: redraw rows and the spinner.</summary>
     public void RefreshPending() => RequestRebuild();
 
+    /// <summary>Selects a mod's row and scrolls to it, which also marks it as read.</summary>
+    public void SelectMod(string modPath)
+    {
+        Rebuild();
+        var row = list.Items.Cast<ListViewItem>().FirstOrDefault(i =>
+            i.Tag is ModRow { Result: var result } && string.Equals(result.Scan.Mod.Path, modPath, StringComparison.OrdinalIgnoreCase));
+        if (row is not null)
+        {
+            row.Selected = true;
+            row.Focused = true;
+            row.EnsureVisible();
+        }
+
+        inbox.MarkRead(modPath);
+    }
+
     protected override void Dispose(bool disposing)
     {
         if (disposing)
         {
+            inbox.Changed -= OnInboxChanged;
             boldFont.Dispose();
             smallBoldFont.Dispose();
             hoverTip.Dispose();
@@ -261,8 +282,10 @@ internal sealed class MainForm : Form
             list.Items.AddRange([.. rows]);
             if (selected is not null && list.Items[selected] is { } again)
             {
+                restoringSelection = true;
                 again.Selected = true;
                 again.Focused = true;
+                restoringSelection = false;
             }
 
             list.EndUpdate();
@@ -385,6 +408,12 @@ internal sealed class MainForm : Form
 
                     x += DotSize + 6;
                     TextRenderer.DrawText(g, result.DisplayName, boldFont, new Rectangle(x, e.Bounds.Y, e.Bounds.Right - x, e.Bounds.Height), fore, textFlags);
+                    if (inbox.HasUnread(result.Scan.Mod.Path))
+                    {
+                        x += TextRenderer.MeasureText(g, result.DisplayName, boldFont, Size.Empty, TextFormatFlags.NoPadding).Width + 8;
+                        Badges.DrawPill(g, new Point(x, e.Bounds.Y + ((e.Bounds.Height - 16) / 2)), 16, Badges.Info, "NEW", smallBoldFont);
+                    }
+
                     return;
                 }
 
@@ -678,12 +707,20 @@ internal sealed class MainForm : Form
         if (SelectedResult() is { } result)
         {
             details.Text = Texts.Details(result, ignores).ReplaceLineEndings("\r\n");
+
+            // Looking at a mod reads its notification. Restoring the selection after a rebuild is not looking.
+            if (!restoringSelection)
+            {
+                inbox.MarkRead(result.Scan.Mod.Path);
+            }
         }
         else if (list.SelectedItems.Count == 1 && list.SelectedItems[0].Tag is PendingRow { Mod: var waiting })
         {
             details.Text = $"{waiting.DisplayName} {waiting.Version}\r\n\r\n{Explain.Waiting(waiting.Checking)}";
         }
     }
+
+    private void OnInboxChanged() => list.Invalidate();
 
     private FindingRow? SelectedFinding() => list.SelectedItems.Count == 1 ? list.SelectedItems[0].Tag as FindingRow : null;
 
